@@ -18,7 +18,7 @@ submission system.
       - Press Escape, then release it
       - Press x, then release it
       - Then type eshell and hit enter.
-   The bottome portion of your window sould now say
+   The bottome portion of your window should now say
    Welcome to the Emacs shell
    
    ~/ece551/000_submit $
@@ -36,7 +36,7 @@ submission system.
    (use C-x o to move there if you aren't) and type
    ls
    at the prompt.
-   This shoudl work just like running ls at the regular prompt,
+   This should work just like running ls at the regular prompt,
    and should show you the README.
 
    Now, let us try out a new command:
@@ -52,7 +52,7 @@ submission system.
    of the window, you will see a prompt for "Manual entry:"  type
    
    status
-
+   
    and hit enter.
    Now the other part of your window should be displaying the man page for
    the status command.   What if we wanted to see the man page in one
