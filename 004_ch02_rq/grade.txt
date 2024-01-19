@@ -1,10 +1,11 @@
-Grading at 01/19/2024:03:37:15.054442
-For commit ID 854c5e06989e3a393cbdce4c7e4e25fd012b8249
-Grading at Thu Jan 18 10:37:14 PM EST 2024
+Grading at 01/19/2024:03:46:25.520070
+For commit ID 8852b70fdb592d251ef2938492549bf8c2530c2c
+Grading at Thu Jan 18 10:46:25 PM EST 2024
 Reading your quiz answers from answers.txt
-You got 1 questions incorrect.
+You got 2 questions incorrect.
 You might want to review these concepts:
 ------------
+The introduction to Chapter 2
 What is an assignment
 ------------
 
