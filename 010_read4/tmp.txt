@@ -1,0 +1,23 @@
+tp = { 
+	p1 = {3,4};
+	p2 = {1,2};
+	}
+
+c
+	p = tp
+	p.p1.x = 3+2 = 5
+	p.p2.x = 1+4 = 5
+	-> print(p1: (5,4))
+	-> print(p2: (5,2))
+c = {5,2}
+-> print(tp.p1: (3,4))
+-> print(tp.p2: (1,2))
+-> print(c: (5,2))
+
+int x = 101-97 = 4
+int y = 77-76 = 1
+int z = 5
+
+-> print(x: 4)
+-> print(y: 1)
+-> print(z: 5) 
