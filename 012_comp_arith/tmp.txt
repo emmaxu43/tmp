@@ -1,0 +1,29 @@
+4. 陷阱题哇
+int (5/3) = 1
+1+2.4 = 3.4
+
+6. 
+hexa -> binary
+0xFFFFFFFF = 1111 repeated for 8 times
+it is a negative value
+invert it 0000 repeated for 8 times
++1 -> 0000 repeated for 7 times+0001
+
+convert this binary to decimal
+it is 1
+so it is -1
+
+result = 5 -1 =4
+
+7. same procedure
+0111 + 1111 repeated for 7 times
+it is a positive value
+invert it -> 1000+0000 repeated for 7 times
+
+this binary to decimal is 2^31 - 1 =2147483647
+
+wait! here is the trap! add 5 will overflow the int data type.
+
+since it is converted from hex, the most significant point determins negative/positive. i think it is signed int.
+so the restart will begin wi -2**31
+result = -2**31+4 = -2147483644
