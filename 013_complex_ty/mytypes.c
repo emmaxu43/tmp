@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 struct _complex_num_t{
 	double real_part;
 	double imaginary_part;
@@ -11,5 +9,5 @@ typedef enum _animal_t{
        	FISH,
        	SNAKE,
        	DOG,
-       	HORSE
+       	HORSE,
 	}; animal_t;
