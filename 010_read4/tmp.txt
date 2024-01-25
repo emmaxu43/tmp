@@ -9,10 +9,10 @@ c
 	p.p2.x = 1+4 = 5
 	-> print(p1: (5,4))
 	-> print(p2: (5,2))
-c = {5,2}
+c = {5,4}
 -> print(tp.p1: (3,4))
 -> print(tp.p2: (1,2))
--> print(c: (5,2))
+-> print(c: (5,4))
 
 int x = 101-97 = 4
 int y = 77-76 = 1

@@ -1,0 +1,20 @@
+1. decimal to binary 
+compute the remainder of 2, and reversely write down the list of remainder.
+101010
+
+2. decimal to hex
+before decimal point: compute the remainder of 16;
+after the point: intergerize the multiplication of 16.
+0x2A
+
+3. hex to decimal
+0x is the indicator of hexa
+C4 -> 4*16^0 + 12*16^2 = 196
+196
+
+4. 196
+
+5. 122
+
+6. to decimal 4+5*16 = 84 -> T
+
