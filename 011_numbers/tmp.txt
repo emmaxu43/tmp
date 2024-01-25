@@ -1,18 +1,27 @@
 1. decimal to binary 
 compute the remainder of 2, and reversely write down the list of remainder.
 101010
+8 bits-> 00101010
 
 2. decimal to hex
 before decimal point: compute the remainder of 16;
 after the point: intergerize the multiplication of 16.
-0x2A
+0x2A -> 0x0000002A(竟然不需要补零，呵呵)
 
-3. hex to decimal
-0x is the indicator of hexa
+
+3. use two;s complement for signed int
+to check whether the most significant point is 1 or 0, first convert hexa to bbinary.
+0xC4: 4-> 0100 ; C(12) -> 1100 -> 11000100
+ths most significant point is 1 -> this is a negative number.
+invert each point -> 00111011
++1 -> 00111100
+convert the above number to decimal -》 12+16+32=60
+-〉 final result=-60
+
+
+4. 0x is the indicator of hexa
 C4 -> 4*16^0 + 12*16^2 = 196
 196
-
-4. 196
 
 5. 122
 
