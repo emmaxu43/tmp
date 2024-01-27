@@ -27,10 +27,10 @@ void squares(int size1, int x_offset, int y_offset, int size2) {
       //    ((y is between y_offset and y_offset + size2) AND
       //     x is equal to either x_offset OR x_offset + size2 -1)
       // if so, print a *
-			bool x1 = (x > x_offset) && (x < x_offset + size2);
+			bool x1 = (x >= x_offset) && (x < x_offset + size2);
 			bool y1 = (y == y_offset) || (y == (y_offset + size2 - 1));
 			bool x2 = (x == x_offset) || (x == (x_offset + size2 -1));
-			bool y2 = (y >  y_offset) && (y < (y_offset + size2));
+			bool y2 = (y >=  y_offset) && (y < (y_offset + size2));
 			bool tmp = (x1&&y1) || (x2&&y2);
 			if (tmp==true) {
 				printf("*");
