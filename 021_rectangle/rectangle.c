@@ -20,29 +20,113 @@ struct _rect {
 	int x;
 	int y;
 	int width;
-	int heights;
+	int height;
 
 };
-typedef _rect rectangle;
+typedef struct _rect rectangle;
 
 rectangle canonicalize(rectangle r) {
   //WRITE THIS FUNCTION
   if (r.width<0){
 	  r.width= -r.width;
 	  r.x = r.x-r.width;
-  };
+  }
 
   if (r.height<0){
   	r.height= -r.height;
 	r.y= r.y- r.height;	
-  };
+  }
 
   return r;
 }
+
+
+
+
 rectangle intersection(rectangle r1, rectangle r2) {
   //WRITE THIS FUNCTION
-  return r1;
+  r1 = canonicalize(r1);
+  r2 = canonicalize(r2);
+
+  rectangle r3;
+  int left, top;
+  //check x-axis intersect or not
+  // r1 is on the left
+  if (r1.x<r2.x) {
+        // not intersect
+        if (r1.x + r1.width < r2.x) {
+                r3.x=0;
+                r3.y=0;
+                r3.width=0;
+                r3.height=0;
+                return r3;
+         }
+        else {
+                // intersect
+                r3.x = r2.x;
+                left = min(r1.x+r1.width, r2.x+r2.width);
+                r3.width = left-r3.x;
+        }
+  }
+  // r2 is on the left
+  else {
+        // not intersect
+        if (r2.x + r2.width < r1.x) {
+                r3.x=0;
+                r3.y=0;
+                r3.width=0;
+                r3.height=0;
+                return r3;
+         }
+        else {
+                // intersect
+                r3.x = r1.x;
+                left = min(r1.x+r1.width, r2.x+r2.width);
+                r3.width = left-r3.x;
+        }
+  }
+
+  //check y-axis intersect or not
+  // r1 is at bottom
+  if (r1.y < r2.y){
+        // not intersect
+        if (r1.y + r1.height < r2.y){
+                r3.x=0;
+                r3.y=0;
+                r3.width=0;
+                r3.height=0;
+                return r3;
+        }
+        else{
+                // intersect
+                r3.y = r2.y;
+                top = min(r1.y+r1.height, r2.y+r2.height);
+                r3.height=top-r3.y;
+        }
+  }
+  else {
+        //r2 is at bottom
+        // no intersection
+        if (r2.y + r2.height < r1.y){
+                r3.x=0;
+                r3.y=0;
+                r3.width=0;
+                r3.height=0;
+                return r3;
+        }
+        // intersect
+        else {
+                r3.y = r1.y;
+                top = min(r1.y+r1.height, r2.y+r2.height);
+                r3.height = top-r3.y;
+        }
+  }
+
+  return r3;
 }
+
+
+
 
 //You should not need to modify any code below this line
 void printRectangle(rectangle r) {
