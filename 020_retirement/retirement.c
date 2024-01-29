@@ -11,13 +11,13 @@ struct _retire_info {
 typedef struct _retire_info retire_info;
 
 
-double monthly_calculator(retire_info name,double balance){
+double monthly_calculator(retire_info name,double initial){
 
 	double monthly_rate = name.rate_of_return/12;
-	double returns = balance * monthly_rate;
-	balance += (returns + name.contribution);
+	double interest = initial * monthly_rate;
+	initial += (interest + name.contribution);
 
-	return balance;
+	return initial;
 }
 
 
@@ -58,7 +58,6 @@ int main() {
 	retired.months = 384;
 	retired.contribution = -4000;
 	retired.rate_of_return = 0.01;
-	retirement(327, 21345, working, retired);
   
 	int startAge = 327;
 	double initial = 21345.0;
