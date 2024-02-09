@@ -1,11 +1,11 @@
-Grading at 02/09/2024:18:53:46.799454
-For commit ID 861893d0d7d4ed7f2bbe89bd345246458cab18af
-Grading at Fri Feb  9 01:53:46 PM EST 2024
+Grading at 02/09/2024:19:00:57.530287
+For commit ID 513b799926b2ea61abadf085d2bdbe498ed4aecf
+Grading at Fri Feb  9 02:00:57 PM EST 2024
 Attempting to compile maxSeq.c 
 Linking your object file with our test main
 #################################################
 testcase2:
-array size:0 was Incorrect
+array size:0 was Correct
 #################################################
 testcase3:
 array size:1 was Correct
@@ -16,4 +16,4 @@ array size:100 was Correct
 testcase5:
 array size:5000 was Correct
 
-Overall Grade: C
+Overall Grade: A
