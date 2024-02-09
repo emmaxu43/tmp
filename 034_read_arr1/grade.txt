@@ -1,0 +1,10 @@
+Grading at 02/09/2024:05:22:34.018379
+For commit ID 7865f7daac576360aa30aeb76787f5d6e83b9174
+Grading at Fri Feb  9 12:22:33 AM EST 2024
+Attempting to compile test.c
+gcc -o test -Wall -Werror test.c
+compiled
+Your file matched the expected output
+Your output matched what we expected
+
+Overall Grade: A
