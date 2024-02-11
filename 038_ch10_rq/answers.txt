@@ -1,0 +1,20 @@
+e 字符串结尾符号
+e
+d 未定义行为，尝试修改const char
+d
+d
+d cannot convert to integer
+g 
+j *p point to second 2nd row
+e 3*4*4=48 bytes
+c 3*8=24 bytes
+g 24+3*4*4=72 bytes 
+b 
+a  
+d
+c
+b
+c
+c
+
+

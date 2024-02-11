@@ -42,8 +42,7 @@ J. const char * const *
 
 3. Suppose you did not pick the most correct type to replace /* SOME TYPE */
    above, but instead, you picked a type which compiled and permitted the follo\
-wing
-   line of code:
+wing line of code:
 
   *s = 'B';
 
@@ -125,7 +124,6 @@ F. 5
 G. 6
 H. 7
 I. 8
-
 J. 9
 K. 10
 L. 11
