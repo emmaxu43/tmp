@@ -4,12 +4,13 @@
 
 void reverse(char * str) {
   //WRITE ME!
-  int stringLEN = strlen(str);
   if (str != NULL) {
-    for (int i=0; i < stringLEN/2; i++){
-      char tmp = str[i];
-      str[i]=str[stringLEN-1-i];
-      str[stringLEN-1-i] = tmp;
+      int stringLEN = strlen(str);
+      for (int i=0; i < stringLEN/2; i++){
+	//if i < stringLEN-1-i:
+          char tmp = str[i];
+          str[i]=str[stringLEN-1-i];
+          str[stringLEN-1-i] = tmp;
     }
   
   }
@@ -19,7 +20,7 @@ void reverse(char * str) {
 int main(void) {
   char str0[] = "";
   char str1[] = "123";
-  char str2[] = "abcd";
+  char str2[] = "!abcdd!";
   char str3[] = "Captain's log, Stardate 42523.7";
   char str4[] = "Hello, my name is Inigo Montoya.";
   char str5[] = "You can be my wingman anyday!";
