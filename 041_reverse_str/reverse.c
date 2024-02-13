@@ -11,8 +11,7 @@ void reverse(char * str) {
           char tmp = str[i];
           str[i]=str[stringLEN-1-i];
           str[stringLEN-1-i] = tmp;
-    }
-  
+    } 
   }
   else {
     return;
