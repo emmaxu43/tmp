@@ -1,0 +1,25 @@
+Which of the following statements is true about an enumerated type in C?
+
+a A variable of enum type can be assigned a new value.
+b An enumerated type is most useful when you have a type of data with many
+numerical values.
+c An enumerated type allows you to bundle multiple variables into a single entity.
+d Though enumerated types have integer values, they cannot be used in conditional
+statements.
+
+选a
+a) A variable of enum type can be assigned a new value.
+
+True. Enumerated types allow you to assign specific named values to variables. You can change the value of an enum variable by assigning a different valid enum constant.
+b) An enumerated type is most useful when you have a type of data with many numerical values.
+
+False. Enumerated types are useful when you want to assign meaningful names to integral constants, not necessarily when you have many numerical values.
+c) An enumerated type allows you to bundle multiple variables into a single entity.
+
+False. Enumerated types define a set of named constants, but they don’t bundle multiple variables.
+d) Though enumerated types have integer values, they cannot be used in conditional statements.
+
+False. Enumerated types are often used in conditional statements (such as if, switch, etc.) to compare the value of an enum variable with specific named constants.
+
+enum默认是整数，每个成员对应一个整数值。
+
