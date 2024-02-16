@@ -1,17 +1,17 @@
-Grading at 02/16/2024:19:03:18.585261
-For commit ID 1e06bd1bd577abaaa433b46ac5f154a65720f232
-Grading at Fri Feb 16 02:03:13 PM EST 2024
+Grading at 02/16/2024:19:24:23.625622
+For commit ID b07f564f9a0839b3e651b9b7835786562032ed66
+Grading at Fri Feb 16 02:24:18 PM EST 2024
 Attempting to compile breaker.c 
 make: 'breaker' is up to date.
 testcase1 passed
 #################################################
 testcase2:
-testcase2 failed
+valgrind reported memory errors or your program ran too long
 #################################################
 testcase3:
-testcase3 passed
+valgrind reported memory errors or your program ran too long
 #################################################
 testcase4:
-testcase4 passed
+valgrind reported memory errors or your program ran too long
 
-Overall Grade: C
+Overall Grade: F
