@@ -1,63 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <ctype.h> 
 
-int retrieve_frequentest_letter(int *array){
-  int max_occurence = 0;
-  int frequentest_letter = array[0];
-  for (int i=1; i<26;++i){
-    if (array[i] > max_occurence){
-      max_occurence = array[i];
-      frequentest_letter = i;
+int retrieve_frequentest_letter(int *array) {
+    int max_occurrence = 1;
+    int frequentest_letterIDX = 0;
+
+    for (int i = 1; i < 26; ++i) {
+        if (array[i] > max_occurrence) {
+            max_occurrence = array[i]; //array is like a hashtable, storing the occurrence number of each letter;
+            frequentest_letterIDX = i;
+        }
     }
-  }
-  int key = (frequentest_letter + 26 - ('e' - 'a')) % 26;  //make sure it is positive;
-  return key;
+    // the current maxIDX is associated with 'e' (idx=4, but in the previous dict, it is like idx==0).
+    if (frequentest_letterIDX<5){
+	frequentest_letterIDX+=22;
+	}
+    else {
+	frequentest_letterIDX-=4;
+	}
+
+    return frequentest_letterIDX;
 }
 
+int frequency_counting(FILE *f) {
+    int c;
+    int hashTable[26] = {0};
 
-int frequency_counting(FILE *f){
-  int c;
-  int hashTable[26]={0};
-
-  while ((c = fgetc(f)) != EOF){
-    if (isalpha(c)) {
-      c = tolower(c);
-      hashTable[c-'a']++;
+    while ((c = fgetc(f)) != EOF) {
+        if (isalpha(c)) {
+            c = tolower(c);
+            hashTable[c - 'a']++;
+        }
     }
-  }
 
-  int frequentest_letter = retrieve_frequentest_letter(hashTable);
-  printf("%d\n", frequentest_letter); 
-	  
-  return frequentest_letter;
+    int frequentest_letter_index = retrieve_frequentest_letter(hashTable);
+    printf("%d\n", frequentest_letter_index);
+
+    return frequentest_letter_index;
 }
 
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s inputFileName\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+    /*
+    int key = atoi(argv[1]);
+    if (key == 0) {
+      fprintf(stderr,"Invalid key (%s): must be a non-zero integer\n", argv[1]);
+      return EXIT_FAILURE;
+    }
+    */
 
-int main(int argc, char ** argv) {
-  if (argc != 3) {
-    fprintf(stderr,"Usage: encrypt key inputFileName\n");
-    return EXIT_FAILURE;
-  }
- 
-  int key = atoi(argv[1]);
-  if (key == 0) {
-    fprintf(stderr,"Invalid key (%s): must be a non-zero integer\n", argv[1]);
-    return EXIT_FAILURE;
-  }
- 
-  FILE * f = fopen(argv[2], "r");
-  if (f == NULL) {
-    perror("Could not open file");
-    return EXIT_FAILURE;
-  }
- 
-  int frequentest_letter = frequency_counting(f);
+    FILE *f = fopen(argv[1], "r");
+    if (f == NULL) {
+        perror("Could not open file");
+        return EXIT_FAILURE;
+    }
 
-  if (fclose(f) != 0) {
-    perror("Failed to close the input file!");
-    return EXIT_FAILURE;
-  }
-  return EXIT_SUCCESS;
+    int frequentest_letter_index = frequency_counting(f);
+
+    if (fclose(f) != 0) {
+        perror("Failed to close the input file!");
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
-                            
+
