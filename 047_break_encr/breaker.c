@@ -3,15 +3,16 @@
 #include <ctype.h>
 
 int retrieve_frequentest_letter(int *array){
-  int max = 0;
-  int frequentest_letter = 0;
-  for (int i=0; i<25;++i){
-    if (array[i] > max){
-      max = array[i];
+  int max_occurence = 0;
+  int frequentest_letter = array[0];
+  for (int i=1; i<26;++i){
+    if (array[i] > max_occurence){
+      max_occurence = array[i];
       frequentest_letter = i;
     }
   }
-  return frequentest_letter;
+  int key = (frequentest_letter + 26 - ('e' - 'a')) % 26;  //make sure it is positive;
+  return key;
 }
 
 
