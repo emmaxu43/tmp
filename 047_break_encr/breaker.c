@@ -3,23 +3,29 @@
 #include <ctype.h> 
 
 int retrieve_frequentest_letter(int *array) {
-    int max_occurrence = 1;
+    int max_occurrence = 0;
     int frequentest_letterIDX = 0;
-
-    for (int i = 1; i < 26; ++i) {
+    for (int i = 0; i < 26; ++i) {
         if (array[i] > max_occurrence) {
             max_occurrence = array[i]; //array is like a hashtable, storing the occurrence number of each letter;
             frequentest_letterIDX = i;
         }
     }
-    // the current maxIDX is associated with 'e' (idx=4, but in the previous dict, it is like idx==0).
-    if (frequentest_letterIDX<5){
-	frequentest_letterIDX+=22;
-	}
-    else {
-	frequentest_letterIDX-=4;
-	}
+    if (max_occurrence==0){
+        printf("No letter found\n");
+	return EXIT_FAILURE;
+   	 }
 
+    else {
+    	// the current maxIDX is associated with 'e' (idx=4, but in the previous dict, it is like idx==0).
+    	if (frequentest_letterIDX<5){
+		frequentest_letterIDX+=22;
+	}
+    	else {
+		frequentest_letterIDX-=4;
+	}
+	printf("%d\n", frequentest_letterIDX);
+    }
     return frequentest_letterIDX;
 }
 
@@ -35,8 +41,11 @@ int frequency_counting(FILE *f) {
     }
 
     int frequentest_letter_index = retrieve_frequentest_letter(hashTable);
-    printf("%d\n", frequentest_letter_index);
 
+    if (frequentest_letter_index == 0) {
+        printf("No letter found\n");
+        return EXIT_FAILURE;
+    }
     return frequentest_letter_index;
 }
 
