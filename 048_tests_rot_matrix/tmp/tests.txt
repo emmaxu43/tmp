@@ -1,0 +1,33 @@
+input0.txt  //hex number
+
+input1.txt   //check space
+input11.txt //multiple space
+
+
+input2.txt   //empty
+input22.txt  //empty arr
+
+input3.txt   //special chars
+inputm.txt   
+input33.txt  //punctuation
+
+input5.txt  ////nums, more rows than cols
+input55.txt // nums, more cols
+input555.txt //nums,square shape
+
+input6.txt   //non-printable chars
+
+input7.txt input7.txt //one more char on a row
+input77.txt  //one less char on a row
+
+input8.txt  //non-ascii code
+
+input9.txt  /num & alphabets, square shape
+input99.txt  // number & alphabets,normal shape, more rows
+input999.txt // number & alphabets,normal shape, more cols
+
+try1.txt //alphabets, more rows
+try11.txt  //alphabets, more cols
+try111.txt //alphabets, sqaure shape
+
+

@@ -1,0 +1,26 @@
+0.txt //3col&row,num
+00.txt // alp
+000.txt ///mixed
+
+1.txt //empty
+
+2.txt // 3cols, 4rows num
+2_1.txt //row加1
+2_11.txt //row少1
+2_2.txt //col加1
+2_22.txt //col少1
+2c.txt //alp
+2m.txt //mixed
+22.txt //4cols,3rows,num
+22c.txt //alp
+22m.txt //mixed
+
+3.txt //spacial char
+0.txt 3
+33.txt //multiple space
+333.txt //\n\t\0
+3333.txt //中文·
+
+
+
+
