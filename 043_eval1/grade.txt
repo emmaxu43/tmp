@@ -1,6 +1,6 @@
-Grading at 02/19/2024:01:23:38.154762
-For commit ID 963b1f2220e6416e1d6e289c7c199f58e796d4b0
-Grading at Sun Feb 18 08:23:08 PM EST 2024
+Grading at 02/19/2024:16:47:42.228238
+For commit ID 0e0c451c5edb012a03d35aa3c82761779870258b
+Grading at Mon Feb 19 11:47:13 AM EST 2024
 
 Replacing the object files with ours
 
@@ -32,12 +32,12 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 5
-Your program did not indicate a failure case
-                                                         [0/1]
+Your program successfully indicated a failure case
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 6
-Your program did not indicate a failure case
-                                                         [0/1]
+Your program successfully indicated a failure case
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 7
 Your program did not indicate a failure case
@@ -48,8 +48,8 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 9
-Your program did not indicate a failure case
-                                                         [0/1]
+Your program successfully indicated a failure case
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 10
 Your program did not indicate a failure case
@@ -83,19 +83,19 @@ Test case 17
 Your file matched the expected output
                                                          [1/1]
 
-Step 1 total                                             [19/25]
+Step 1 total                                             [22/25]
 
 =========================================================================
 Step 2
 
 +-----------------------------------------------------------------------+
 Test case 18
-Your program did not indicate a failure case
-                                                         [0/2]
+Your program successfully indicated a failure case
+                                                         [2/2]
 +-----------------------------------------------------------------------+
 Test case 19
-Your program did not indicate a failure case
-                                                         [0/2]
+Your program successfully indicated a failure case
+                                                         [2/2]
 +-----------------------------------------------------------------------+
 Test case 20
 Your file matched the expected output
@@ -117,7 +117,7 @@ Test case 24
 Your file matched the expected output
                                                          [2/2]
 
-Step 2 total                                             [21/25]
+Step 2 total                                             [25/25]
 
 =========================================================================
 Step 3
@@ -213,4 +213,4 @@ Quality total                                            [0/10]
 
 =========================================================================
 
-Overall Grade: 80
+Overall Grade: 87
