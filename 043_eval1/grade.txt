@@ -1,6 +1,6 @@
-Grading at 02/19/2024:18:02:29.253140
-For commit ID 83c1540cf462f41d01805fde20618dfa43a5eb17
-Grading at Mon Feb 19 01:02:01 PM EST 2024
+Grading at 02/19/2024:19:13:17.963792
+For commit ID 1771cd192df25fe21a156bb4df8166278805cb06
+Grading at Mon Feb 19 02:12:49 PM EST 2024
 
 Replacing the object files with ours
 
@@ -52,8 +52,8 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 10
-Your program successfully indicated a failure case
-                                                         [1/1]
+Your program did not indicate a failure case
+                                                         [0/1]
 +-----------------------------------------------------------------------+
 Test case 11
 Your program successfully indicated a failure case
@@ -64,31 +64,26 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 13
-Line_1_did_not_match
-Your file did not match the expected output
-                                                         [0/5]
+Your file matched the expected output
+                                                         [5/5]
 +-----------------------------------------------------------------------+
 Test case 14
-Line_1_did_not_match
-Your file did not match the expected output
-                                                         [0/5]
+Your file matched the expected output
+                                                         [5/5]
 +-----------------------------------------------------------------------+
 Test case 15
-Line_1_did_not_match
-Your file did not match the expected output
-                                                         [0/1]
+Your file matched the expected output
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 16
-Line_1_did_not_match
-Your file did not match the expected output
-                                                         [0/1]
+Your file matched the expected output
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 17
-Line_1_did_not_match
-Your file did not match the expected output
-                                                         [0/1]
+Your file matched the expected output
+                                                         [1/1]
 
-Step 1 total                                             [12/25]
+Step 1 total                                             [24/25]
 
 =========================================================================
 Step 2
@@ -218,4 +213,4 @@ Quality total                                            [0/10]
 
 =========================================================================
 
-Overall Grade: 77
+Overall Grade: 89
