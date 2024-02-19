@@ -1,6 +1,6 @@
-Grading at 02/19/2024:16:47:42.228238
-For commit ID 0e0c451c5edb012a03d35aa3c82761779870258b
-Grading at Mon Feb 19 11:47:13 AM EST 2024
+Grading at 02/19/2024:17:20:21.730772
+For commit ID a8d830f2939f6cd5f979bf0b5c35c4e949b9836e
+Grading at Mon Feb 19 12:19:52 PM EST 2024
 
 Replacing the object files with ours
 
@@ -20,8 +20,8 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 2
-Your program did not indicate a failure case
-                                                         [0/1]
+Your program successfully indicated a failure case
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 3
 Your program successfully indicated a failure case
@@ -40,8 +40,8 @@ Your program successfully indicated a failure case
                                                          [1/1]
 +-----------------------------------------------------------------------+
 Test case 7
-Your program did not indicate a failure case
-                                                         [0/1]
+Your program successfully indicated a failure case
+                                                         [1/1]
 +-----------------------------------------------------------------------+
 Test case 8
 Your program successfully indicated a failure case
@@ -83,7 +83,7 @@ Test case 17
 Your file matched the expected output
                                                          [1/1]
 
-Step 1 total                                             [22/25]
+Step 1 total                                             [24/25]
 
 =========================================================================
 Step 2
@@ -213,4 +213,4 @@ Quality total                                            [0/10]
 
 =========================================================================
 
-Overall Grade: 87
+Overall Grade: 89
