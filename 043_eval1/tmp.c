@@ -45,18 +45,12 @@ ss_monthly_t parseLine(char * line) {
 
   // Retrieve sunspots number.
   element = strtok(NULL, ",");
-  if (sizeof(element) == sizeof(float)) {
-    printf("The variable is of type float.\n");
-  } else {
-    fprintf(stderr, "Error: ssNUM is not a float.\n");
-    exit(EXIT_FAILURE);
-  }
-
   printf("ssNUM: %s\n", element);
   if (element == NULL) {
     fprintf(stderr, "Error: Missing sunspots value.\n");
     exit(EXIT_FAILURE);
   }
+  
   // A valid sunspot number is non-negative float.
   if (sscanf(element, "%lf", &output.num) != 1) {
     fprintf(stderr, "Error: Invalid sunspots format.\n");
@@ -67,6 +61,14 @@ ss_monthly_t parseLine(char * line) {
     exit(EXIT_FAILURE);
   }
 
+  // Seperate the decimal point.
+  char* decimalPart = strchr(element, '.');
+  if (decimalPart == NULL) {
+    fprintf(stderr, "Error: Invalid sunspots format.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  
   return output;
 }
 

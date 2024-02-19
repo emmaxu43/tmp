@@ -61,18 +61,17 @@ ss_monthly_t parseLine(char * line) {
     exit(EXIT_FAILURE);
   }
   // A valid sunspot number is non-negative float. 
+  if (sizeof(element) != sizeof(float) || (sizeof(element) != sizeof(double))) {
+    fprintf(stderr, "Error: ssNUM is not a float.\n");
+    exit(EXIT_FAILURE);
+  }
+  
   if (sscanf(element, "%lf", &output.num) != 1) {
     fprintf(stderr, "Error: Invalid sunspots format.\n");
     exit(EXIT_FAILURE);
   }
   if (output.num < 0) {
     fprintf(stderr, "Error: Invalid sunspots value.\n");
-    exit(EXIT_FAILURE);
-  }
-  // Seperate the decimal point to check it is a int or float.
-  char* decimalP = strchr(element, '.');
-  if (decimalP == NULL) {
-    fprintf(stderr, "Error: Invalid sunspots format.\n");
     exit(EXIT_FAILURE);
   }
 
