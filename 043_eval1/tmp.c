@@ -10,7 +10,7 @@ ss_monthly_t parseLine(char * line) {
   ss_monthly_t output;
   output.year = 0;
   output.month = 0;
-  output.num = 0;
+  output.num = 0.0;
 
   char *element;
   element = strtok(line, ","); //return to the first token , (similar to split in python)
@@ -18,9 +18,16 @@ ss_monthly_t parseLine(char * line) {
     fprintf(stderr, "Error: Invalid input format.\n");
     exit(EXIT_FAILURE);
   }
-  printf("TIME: %s\n", element);
+  int tmp = strlen(element);
+  printf("TIME: %s  %d \n", element, tmp);
 
-  // Retrieve time (element should be 4 digit year & 2 digit month connected with a hypen).
+  // Element should be 4 digit year & 2 digit month connected with a hypen
+  if (strlen(element) != 7 || element[4] != '-') {
+    fprintf(stderr, "Error: Invalid date format.\n");
+    exit(EXIT_FAILURE);
+    }
+
+  // Retrieve time.
   if (sscanf(element, "%4u-%2u", &output.year, &output.month) != 2) {
     fprintf(stderr, "Error: Invalid date format.\n");
     exit(EXIT_FAILURE);

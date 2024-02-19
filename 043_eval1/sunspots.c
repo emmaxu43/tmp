@@ -11,7 +11,7 @@ ss_monthly_t parseLine(char * line) {
   output.month = 0;
   output.num = 0;
 
-  // Check whether the input file is empty or not.
+  // Read the input file line by line. Check the line is empty or not.
   if (line == NULL) {
     fprintf(stderr, "Empty input.\n");
     exit(EXIT_FAILURE);
@@ -19,7 +19,7 @@ ss_monthly_t parseLine(char * line) {
 
   // Parse the input string from csv file.
   char *element;
-  element = strtok(line, ","); //return to the first token , (similar to split in python)
+  element = strtok(line, ","); //return to the first token , (similar to split[0] in python)
   if (element == NULL) {
     fprintf(stderr, "Error: Invalid input format.\n");
     exit(EXIT_FAILURE);
@@ -32,7 +32,13 @@ ss_monthly_t parseLine(char * line) {
   }
   */
 
-  // Retrieve time (element should be 4 digit year & 2 digit month connected with a hypen).
+  // Element should be 4 digit year & 2 digit month connected with a hypen
+  if (strlen(element) != 7 || element[4] != '-') {
+    fprintf(stderr, "Error: Invalid date format.\n");
+    exit(EXIT_FAILURE);
+    }
+
+  // Retrieve time.
   if (sscanf(element, "%4u-%2u", &output.year, &output.month) != 2) {
     fprintf(stderr, "Error: Invalid date format.\n");
     exit(EXIT_FAILURE);
@@ -82,28 +88,28 @@ void meanFilter(ss_monthly_t * data, size_t n, ss_monthly_t * mean, unsigned w) 
   }
 
   // Check whether window size > neighboring points.
-  if (w > n){
+  if (w > n) {
     fprintf(stderr, "Error: Window size is larger than the data length.\n");
     exit(EXIT_FAILURE);
   }
 
-  unsigned half_w = w/2; // window size w is an odd number (casting occurs here & round floating points part).
+  unsigned half_w = w / 2; // window size w is an odd number (casting occurs here & round floating points part).
   
   // Read through the neighboring points.
-  for (size_t i=0 ; i<n ; ++i){
+  for (size_t i = 0 ; i < n ; ++i) {
     double sum = 0.0;
     unsigned sunspots_count=0;
 
     // Compute the sum of neighboring points.
     unsigned start_idx;
-    if (i >= half_w){
+    if (i >= half_w) {
       start_idx = i - half_w;
     } else {
       start_idx = 0; //Handle boundaries where the window is out of bounds.
     }
     
     unsigned end_idx;
-    if (i + half_w < n){
+    if (i + half_w < n) {
       end_idx = i + half_w;
     } else {
       end_idx = n-1; // handle boundaries where the window is out of bounds.
@@ -161,7 +167,7 @@ double findLocalMax(ss_monthly_t * data, size_t n) {
 
 double calcSsPeriod(double * timeStamps, size_t n) {
   //WRITE ME
-  if (n <= 1){
+  if (n <= 1) {
     fprintf(stderr,"Error: Need more sample data to compute.\n");
     return EXIT_FAILURE;
   }
@@ -169,7 +175,7 @@ double calcSsPeriod(double * timeStamps, size_t n) {
   // Compute the averaged cycle of sunspots.
   double temporalDiff = 0.0;
   double totalDiff = 0.0;
-  for (size_t i=1; i<n; ++i){
+  for (size_t i = 1; i < n; ++i) {
     temporalDiff = fabs(timeStamps[i] - timeStamps[i-1]); //absolute difference of timeStamps to handle both ascending and descending order
     totalDiff += temporalDiff;
   } 
