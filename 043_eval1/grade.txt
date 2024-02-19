@@ -1,0 +1,216 @@
+Grading at 02/19/2024:01:23:38.154762
+For commit ID 963b1f2220e6416e1d6e289c7c199f58e796d4b0
+Grading at Sun Feb 18 08:23:08 PM EST 2024
+
+Replacing the object files with ours
+
+Checking that your code compiles
+rm -f *~ printSsData printFilteredSsData printLocalMax printSsPeriod
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsData.o -o printSsData
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printFilteredSsData.o -o printFilteredSsData
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printLocalMax.o -o printLocalMax
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsPeriod.o -o printSsPeriod
+
+=========================================================================
+Step 1
+
++-----------------------------------------------------------------------+
+Test case 1
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 2
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 3
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 4
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 5
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 6
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 7
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 8
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 9
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 10
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 11
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 12
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 13
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 14
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 15
+Your file matched the expected output
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 16
+Your file matched the expected output
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 17
+Your file matched the expected output
+                                                         [1/1]
+
+Step 1 total                                             [19/25]
+
+=========================================================================
+Step 2
+
++-----------------------------------------------------------------------+
+Test case 18
+Your program did not indicate a failure case
+                                                         [0/2]
++-----------------------------------------------------------------------+
+Test case 19
+Your program did not indicate a failure case
+                                                         [0/2]
++-----------------------------------------------------------------------+
+Test case 20
+Your file matched the expected output
+                                                         [10/10]
++-----------------------------------------------------------------------+
+Test case 21
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 22
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 23
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 24
+Your file matched the expected output
+                                                         [2/2]
+
+Step 2 total                                             [21/25]
+
+=========================================================================
+Step 3
+
++-----------------------------------------------------------------------+
+Test case 1
+Your program successfully indicated a failure case
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 2
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 4
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 5
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 6
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 7
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 8
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 9
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 10
+Your file matched the expected output
+                                                         [2/2]
+
+Step 3 total                                             [20/20]
+
+=========================================================================
+Step 4
+
++-----------------------------------------------------------------------+
+Test case 11
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 2
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 3
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 4
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 5
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 6
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 7
+Your file matched the expected output
+                                                         [2/2]
+
+Step 4 total                                             [20/20]
+
+=========================================================================
+Code quality
+
+Abstration:    
+Naming:        
+Formatting:    
+Documentation: 
+Comments from your grader:
+
+
+Quality total                                            [0/10]
+
+=========================================================================
+
+Overall Grade: 80
