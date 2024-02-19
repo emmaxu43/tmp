@@ -140,10 +140,17 @@ filtered data.
 
 We have applied our mean filter to the data in sunspots_small.csv with w = 5
 and saved the results to file sunspots_small_filtered_5.csv. (See the provided
-data files in /usr/local/ece551/sunspots/.) File sunspots_data_filtered_71.csv
+data files in /usr/local/ece551/sunspots/.) 
+
+./printFilteredSsData sunspots_small.csv 5 | diff /usr/local/ece551/sunspots/sunspots_small_filtered_5.csv -
+
+File sunspots_data_filtered_71.csv
 contains the mean-filtered data from sunspots_data.csv with w = 71. You may
 use these two files as references when writing and testing your code. You
-could also use diff to compare the output of the program and the references. 
+could also use diff to compare the output of the program and the references.
+
+./printFilteredSsData sunspots_data.csv 71 | diff /usr/local/ece551/sunspots/sunspots_data_filtered_71.csv -
+ 
 
 Of course, you should test with many more inputs than those provided to be
 confident your code works well.
@@ -189,7 +196,11 @@ make printLocalMax
 
 and test
 
-./printLocalMax step3_data/sunspots_data_filtered_71_part_00.csv
+./printLocalMax step3_data/sunspots_data_filtered_71_part00.csv
+./printLocalMax step3_data/sunspots_data_filtered_71_part01.csv
+./printLocalMax step3_data/sunspots_data_filtered_71_part02.csv
+./printLocalMax step3_data/sunspots_data_filtered_71_part03.csv
+./printLocalMax step3_data/sunspots_data_filtered_71_part04.csv
 
 as well as other files in the step3_data.
 
@@ -256,6 +267,9 @@ function calcSsPeriod and print out one line like
 
 The estimated period of sunspots is 10.989130 years.
 
+cx43: I got the same answer by using w=7. 
+./printSsPeriod sunspots_data.csv 7
+
 (Your estimated period should be close to 11 years.)
 
 Of course, you should test with many more inputs than those provided to be
@@ -266,6 +280,9 @@ But for the period to be realistic, the test file must be a part of the
 original sunspots_data.csv file, starting from the beginning of the time
 series and ending after 20 years (240 months). The first line in your test file
 should be the header "date,number of sunspots".
+
+./printSsPeriod /usr/local/ece551/sunspots/sunspots_55yrs.csv 7 -> 10.854167 years.
+./printSsPeriod /usr/local/ece551/sunspots/sunspots_178yrs.csv 7 -> 11.238889 years.
 
 Be sure to git add, commit, and push your code when you are done testing this
 step. 
