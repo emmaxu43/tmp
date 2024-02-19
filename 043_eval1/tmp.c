@@ -45,6 +45,13 @@ ss_monthly_t parseLine(char * line) {
 
   // Retrieve sunspots number.
   element = strtok(NULL, ",");
+  if (sizeof(element) == sizeof(float)) {
+    printf("The variable is of type float.\n");
+  } else {
+    fprintf(stderr, "Error: ssNUM is not a float.\n");
+    exit(EXIT_FAILURE);
+  }
+
   printf("ssNUM: %s\n", element);
   if (element == NULL) {
     fprintf(stderr, "Error: Missing sunspots value.\n");
