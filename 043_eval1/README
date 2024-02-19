@@ -57,6 +57,9 @@ an appropriate error message to stderr and exit with a failure status.
 Test your code thoroughly before moving on to the next step. We have provided
 a Makefile, so you can do
 
+cx43:gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 tmp.c printSsData.o -o tmp
+./tmp sunspots_small.csv 
+
 make printSsData
 
 and your code will be linked with ours, so you can test this step like this:

@@ -6,10 +6,10 @@
 
 ss_monthly_t parseLine(char * line) {
   // WRITE ME
-  ss_monthly_t ans;
-  ans.year = 0;
-  ans.month = 0;
-  ans.num = 0;
+  ss_monthly_t output;
+  output.year = 0;
+  output.month = 0;
+  output.num = 0;
 
   // Check whether the input file is empty or not.
   if (line == NULL) {
@@ -21,37 +21,73 @@ ss_monthly_t parseLine(char * line) {
   char *element;
   element = strtok(line, ","); //return to the first token , (similar to split in python)
   if (element == NULL) {
-      fprintf(stderr, "Error: Invalid input format.\n");
-      exit(EXIT_FAILURE);
+    fprintf(stderr, "Error: Invalid input format.\n");
+    exit(EXIT_FAILURE);
   }
 
-  // Retrieve time
-  if (sscanf(element, "%4u-%2u", &ans.year, &ans.month) != 2) {
-      fprintf(stderr, "Error: Invalid date format.\n");
-      exit(EXIT_FAILURE);
+  /* The input 'line' did not contain headers, also string headers did not include within the struct. No need to consider the incorrect format of header. 
+  if (strcmp(element, "date,number of sunspots") == 1)) {
+    fprintf(stderr, "Error: Invalid input format.\n");
+    exit(EXIT_FAILURE);
   }
-  
-  // Retrieve sunspots number
+  */
+
+  // Retrieve time (element should be 4 digit year & 2 digit month connected with a hypen).
+  if (sscanf(element, "%4u-%2u", &output.year, &output.month) != 2) {
+    fprintf(stderr, "Error: Invalid date format.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  // Retrieve year and month
+  if ((output.year > 9999) || (output.year < 0)) {
+    fprintf(stderr, "Error: Invalid year format.\n"); // year between 0000 and 9999
+    exit(EXIT_FAILURE);
+    }
+  if ((output.month < 1) || (output.month > 12)) {
+    fprintf(stderr, "Error: Invalid month format.\n"); // month between 01 and 12
+    exit(EXIT_FAILURE);
+    }
+
+  // Retrieve sunspots number.
   element = strtok(NULL, ",");
   if (element == NULL) {
-      fprintf(stderr, "Error: Missing sunspots value.\n");
-      exit(EXIT_FAILURE);
+    fprintf(stderr, "Error: Missing sunspots value.\n");
+    exit(EXIT_FAILURE);
   }
-  if (sscanf(element, "%lf", &ans.num) != 1) {
-      fprintf(stderr, "Error: Invalid sunspots value.\n");
-      exit(EXIT_FAILURE);
+  // A valid sunspot number is non-negative float.
+  if (sscanf(element, "%lf", &output.num) != 1) {
+    fprintf(stderr, "Error: Invalid sunspots format.\n");
+    exit(EXIT_FAILURE);
+  }
+  if (output.num < 0) {
+    fprintf(stderr, "Error: Invalid sunspots value.\n");
+    exit(EXIT_FAILURE);
   }
 
-  return ans;
+  return output;
 }
+
 
 void meanFilter(ss_monthly_t * data, size_t n, ss_monthly_t * mean, unsigned w) {
   // WRITE ME
   if (data == NULL) {
-    fprintf(stderr, "Empty array.\n");
+    fprintf(stderr, "Error: Empty array.\n");
+    exit(EXIT_FAILURE);
   }
   
-  unsigned half_w = w/2; // window size w is an odd number. Truncation occurs here.
+  // Check w is an odd positive number or not.
+  if ((w <= 0) || (w % 2 !=1)) {
+    fprintf(stderr, "Error: Invalid window size.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  // Check whether window size > neighboring points.
+  if (w > n){
+    fprintf(stderr, "Error: Window size is larger than the data length.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  unsigned half_w = w/2; // window size w is an odd number (casting occurs here & round floating points part).
   
   // Read through the neighboring points.
   for (size_t i=0 ; i<n ; ++i){
@@ -63,21 +99,22 @@ void meanFilter(ss_monthly_t * data, size_t n, ss_monthly_t * mean, unsigned w) 
     if (i >= half_w){
       start_idx = i - half_w;
     } else {
-      start_idx = 0;
+      start_idx = 0; //Handle boundaries where the window is out of bounds.
     }
     
     unsigned end_idx;
     if (i + half_w < n){
       end_idx = i + half_w;
     } else {
-      end_idx = n-1;
+      end_idx = n-1; // handle boundaries where the window is out of bounds.
     }
-    for (unsigned idx = start_idx; idx < end_idx+1; ++idx){
+
+    for (unsigned idx = start_idx; idx <= end_idx; ++idx){
       sum += data[idx].num;
       ++sunspots_count;
     }
     
-    // Compute the mean sunspots.
+    // Compute the mean sunspots (year, month, and ss_number should be valid afterh applying the formatting check in the step 1).
     mean[i].year = data[i].year;
     mean[i].month = data[i].month;
     mean[i].num = sum / sunspots_count;
@@ -91,7 +128,8 @@ double findLocalMax(ss_monthly_t * data, size_t n) {
     fprintf(stderr,"Error: Empty input.\n");
     exit(EXIT_FAILURE);
   }
-  
+
+  // Only headers present.
   if (n == 0 ){
     fprintf(stderr,"Error: Empty data.\n");
     exit(EXIT_FAILURE);
@@ -101,7 +139,7 @@ double findLocalMax(ss_monthly_t * data, size_t n) {
   int max_idx = -1;
   double localMax_sunspots= -1.0;
   for (size_t i=0; i<n; ++i){
-    if (data[i].num > localMax_sunspots){ // > operand make sure only save the first max element.
+    if (data[i].num > localMax_sunspots){ // > operand make sure we only save the first max element.
       localMax_sunspots = data[i].num;
       max_idx = i;
     }
