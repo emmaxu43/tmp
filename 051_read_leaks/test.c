@@ -20,6 +20,6 @@ int main(void) {
   free(p); // Free p before it is assigned to new q address
   p = q;
   q = NULL;
-  // free(p);
+  free(p);
   return EXIT_SUCCESS;
 }
