@@ -1,9 +1,14 @@
-Grading at 02/21/2024:02:01:29.408065
-For commit ID f1b89bf8d2daefe33ae96c7b29dc7c2391ca1e54
-Grading at Tue Feb 20 09:01:29 PM EST 2024
+Grading at 02/21/2024:15:54:24.717348
+For commit ID f0b58b175f8a4aef619a37419041b45e46b1986a
+Grading at Wed Feb 21 10:54:24 AM EST 2024
 
 Compiling 
 rm -f *~ printSsData printFilteredSsData printLocalMax printSsPeriod
-The code did not compile!
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsData.o -o printSsData
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printFilteredSsData.o -o printFilteredSsData
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printLocalMax.o -o printLocalMax
+gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsPeriod.o -o printSsPeriod
+Running your test cases
+Cannot proceed without testcases.txt
 
 Overall Grade: NO GRADE YET
