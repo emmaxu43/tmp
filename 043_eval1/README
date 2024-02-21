@@ -66,6 +66,8 @@ and your code will be linked with ours, so you can test this step like this:
 
 ./printSsData sunspots_data.csv
 
+./printSsData sunspots_small.csv
+
 If your code works well, you will see the exactly same output as shown in the
 data file, including the header. So you may use diff to compare the output of
 the program and the original data file, like this: 

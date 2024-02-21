@@ -38,13 +38,17 @@ ss_monthly_t parseLine(char * line) {
     exit(EXIT_FAILURE);
     }
 
-  // Retrieve time.
-  if (sscanf(element, "%4u-%2u", &output.year, &output.month) != 2) {
-    fprintf(stderr, "Error: Invalid date format.\n");
-    exit(EXIT_FAILURE);
-  }
-
   // Retrieve year and month
+  char year_str[5];
+  char month_str[3];
+  strncpy(year_str, element, 4);
+  year_str[4] = '\0';
+  strncpy(month_str, element+5, 2);
+  month_str[2] = '\0';
+  output.year = atoi(year_str);
+  output.month = atoi(month_str);
+
+  // Check the temporal information are valid or not.
   if ((output.year > 9999) || (output.year < 0)) {
     fprintf(stderr, "Error: Invalid year format.\n"); // year between 0000 and 9999
     exit(EXIT_FAILURE);
@@ -62,10 +66,8 @@ ss_monthly_t parseLine(char * line) {
   }
 
   // A valid sunspot number is non-negative float. 
-  if (sscanf(element, "%lf", &output.num) != 1) {
-    fprintf(stderr, "Error: Invalid sunspots format.\n");
-    exit(EXIT_FAILURE);
-  }
+  double sunspots = atof(element);
+  output.num = sunspots;
   if (output.num < 0) {
     fprintf(stderr, "Error: Invalid sunspots value.\n");
     exit(EXIT_FAILURE);
