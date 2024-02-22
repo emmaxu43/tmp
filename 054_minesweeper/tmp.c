@@ -40,54 +40,9 @@ void addRandomMine(board_t * b) {
 }
 
 board_t * makeBoard(int w, int h, int numMines) {
-    // WRITE ME!
-    // Allocate memory
-    board_t* b = malloc(sizeof(*b)); // board_t structure
-    if (b == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed for board_t.\n");
-        exit(EXIT_FAILURE);
-    }
-    
-    // Initialization
-    b->height = h;
-    b->width = w;
-    b->totalMines = numMines;
-
-    // Validate the number of mines
-    if (numMines < 0) {
-        fprintf(stderr, "Error: Invalid number of mines.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Allocate memory
-    b->board = malloc(h * sizeof(*b->board)); // board is a 2D array
-					      // double pointer: b points to another pointer board
-					      // 2d: h (rows) of type (*b->board) shape 
-    if (b->board == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed for board rows.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Initialize board to UNKNOWN values
-    for (int i = 0; i < h; ++i) {
-        b->board[i] = malloc(w * sizeof(**b->board)); // pointing to each row of board
-        if (b->board[i] == NULL) {
-            fprintf(stderr, "Error: Memory allocation failed for board columns.\n");
-            exit(EXIT_FAILURE);
-        }
-        for (int j = 0; j < w; ++j) {
-            b->board[i][j] = UNKNOWN; // point to each element
-        }
-    }
-
-    // Add random mines to the board
-    for (int i = 0; i < numMines; ++i) {
-        addRandomMine(b);
-    }
-
-    return b;
+  // WRITE ME!
+  return NULL;
 }
-
 
 /* Print the board with 
    ? for unknown square
@@ -147,151 +102,8 @@ void printBoard(board_t * b) {
 
 int countMines(board_t * b, int x, int y) {
   // WRITE ME!
-  // Analogy to kernel: count the number of mines surrounding the target; note to handle boundaries.
-  int n = 0;
-  if (x == 0) { //check whether it is at the left edge
-    if (y == 0) { // check it is at the top edge
-     // only move forwards right,bottom or both directions
-     if (IS_MINE(b->board[y][x+1])) {
-       ++n; // check right box contains mine or not
-     }
-     if (IS_MINE(b->board[y+1][x])) {
-       ++n; // check bottom box contains mine or not
-     }
-     if (IS_MINE(b->board[y+1][x+1])) {
-       ++n; // check bottom right box contains mine or not
-     }
-    } else if (y == b->height-1) { // left bottom
-        if (IS_MINE(b->board[y - 1][x + 1])) {
-        ++n; // move right & up
-        }
-        if (IS_MINE(b->board[y - 1][x])) {
-        ++n; // move up
-        }
-        if (IS_MINE(b->board[y][x + 1])) {
-        ++n; //move right
-        }
-      }
-    else { // in the middle of left edge
-      if (IS_MINE(b->board[y + 1][x + 1])) {
-        ++n; // move up & right
-      }
-      if (IS_MINE(b->board[y + 1][x])) {
-        ++n; // move up
-      }
-      if (IS_MINE(b->board[y][x + 1])) {
-        ++n; // move right
-      }
-      if (IS_MINE(b->board[y - 1][x + 1])) {
-        ++n; // move down & right
-      }
-      if (IS_MINE(b->board[y - 1][x])) {
-        ++n; //move down
-      }
-    }
-  } else if (x == b->width - 1){ // right edge
-        if (y == 0) { //top
-          if (IS_MINE(b->board[y + 1][x - 1])) {
-            ++n; // move down & left
-          }
-          if (IS_MINE(b->board[y + 1][x])) {
-            ++n; // move down
-          }
-          if (IS_MINE(b->board[y][x - 1])) {
-            ++n; // move left
-          }
-        } else if (y == b->height - 1) { // bottom right
-              if (IS_MINE(b->board[y - 1][x - 1])) {
-                ++n; // move left & up
-              }
-              if (IS_MINE(b->board[y - 1][x])) {
-                ++n; // move up
-              }
-              if (IS_MINE(b->board[y][x - 1])) {
-                ++n; // move left
-              }
-            } else { // in the middle of right edge
-                if (IS_MINE(b->board[y - 1][x - 1])) {
-                  ++n; // move up & left
-                }
-                if (IS_MINE(b->board[y - 1][x])) {
-                  ++n; // move up
-                }
-                if (IS_MINE(b->board[y][x - 1])) {
-                  ++n; // move left
-                }
-                if (IS_MINE(b->board[y + 1][x - 1])) {
-                  ++n; // move down & left
-                }
-                if (IS_MINE(b->board[y + 1][x])) {
-                  ++n; // move down
-                }
-              }
-      } else { // in the middle of the board
-          if (y == 0) { // top
-            if (IS_MINE(b->board[y][x - 1])) {
-              ++n; // move left
-            }
-            if (IS_MINE(b->board[y + 1][x - 1])) {
-              ++n; // move down & left
-            }
-            if (IS_MINE(b->board[y + 1][x])) {
-              ++n; // move down
-            }
-            if (IS_MINE(b->board[y + 1][x + 1])) {
-              ++n; // move down & right
-            }
-            if (IS_MINE(b->board[y][x + 1])) {
-              ++n; // move right
-            }
-          } else if (y == b->height - 1) { // bottom
-                if (IS_MINE(b->board[y][x - 1])) {
-                  ++n; // move left
-                }
-                if (IS_MINE(b->board[y - 1][x - 1])) {
-                  ++n; // move up & left
-                }
-                if (IS_MINE(b->board[y - 1][x])) {
-                  ++n; // move up
-                }
-                if (IS_MINE(b->board[y - 1][x + 1])) {
-                  ++n; // move up & right
-                }
-                if (IS_MINE(b->board[y][x + 1])) {
-                  ++n; // move right
-                }
-              } else { // in the middle of the board
-                  if (IS_MINE(b->board[y - 1][x - 1])) {
-                    ++n; // move up & left
-                  }
-                  if (IS_MINE(b->board[y - 1][x])) {
-                    ++n; // move up
-                  }
-                  if (IS_MINE(b->board[y - 1][x + 1])) {
-                    ++n; // move up & right
-                  }
-                  if (IS_MINE(b->board[y][x - 1])) {
-                    ++n; // move left
-                  }
-                  if (IS_MINE(b->board[y][x + 1])) {
-                    ++n; // move right
-                  }
-                  if (IS_MINE(b->board[y + 1][x - 1])) {
-                    ++n; // move down & left
-                  }
-                  if (IS_MINE(b->board[y + 1][x])) {
-                    ++n; // move down
-                  }
-                  if (IS_MINE(b->board[y + 1][x + 1])) {
-                    ++n; // move down & right
-                  }
-                }
-      }
-  return n;
+  return 0;
 }
-
-
-
 
 /* Determine action of selected square
    Could be a known mine, unknown mine, 
@@ -329,11 +141,6 @@ int checkWin(board_t * b) {
 
 void freeBoard(board_t * b) {
   // WRITE ME!
-  for (int i = 0; i < b->height; ++i){
-    free(b->board[i]);
-  }
-  free(b->board);
-  free(b);
 }
 
 /* Read and validate positive integer from player */

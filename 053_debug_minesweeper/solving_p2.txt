@@ -34,5 +34,13 @@ $5 = -1
 From the output, I know b[0][1] is the mine.
 
 
+The erorr is:
+if (b->board[j][i] == UNKNOWN) {
+        return 0;
+      }
+    }
+  }
+  return 1;
+
 
 
