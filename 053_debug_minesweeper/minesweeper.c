@@ -102,12 +102,12 @@ int click(board_t * b, int x, int y) {
 int checkWin(board_t * b) {
   for (int i = 0; i < b->width; i++) {
     for (int j = 0; j < b->height; j++) {
-      if (b->board[j][i] != UNKNOWN) {
-        return 1;
+      if (b->board[j][i] == UNKNOWN) {
+        return 0;
       }
     }
   }
-  return 0;
+  return 1;
 }
 
 /* Read and validate positive integer from player */
