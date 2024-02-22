@@ -1,0 +1,33 @@
+////////
+GDB
+$ gdb ./minsweeper 2 3 1
+$ break maybeReveal
+$ run  2 3 1
+and then input 0 & 0 as indicated in the README
+it pops out:
+Breakpoint 1, maybeReveal (b=0x55555555a2a0, x=0, y=0) at minesweeper.c:176
+176	  int unknownSquares = 0;
+(gdb) n
+177	  int knownMines = 0;
+(gdb) print unknownSquares
+$1 = 0
+重复以上的步骤，我发现了问题在于
+(gdb) n
+183	        if (b->board[ny][nx] == UNKNOWN || b->board[ny][nx] == HAS_MINE) {
+(gdb) print board[ny][nx]
+No symbol "board" in current context.
+---------->>>>>>>>>>>>>
+The issue lies in the loop bounds for dx and dy.
+When dx is -1, nx becomes negative, causing an out-of-bounds access.
+Similarly, when dy is -1, ny becomes negative.
+<<<<<<<--------
+
+Wo setting the beak point at maybeReveal function, it pops out :
+Program received signal SIGSEGV, Segmentation fault.
+0x0000555555555d5f in maybeReveal (b=0x55555555a2a0, x=0, y=0) at minesweeper.c:183
+183	        if (b->board[ny][nx] == UNKNOWN || b->board[ny][nx] == HAS_MINE) {
+
+
+
+
+ 

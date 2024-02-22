@@ -1,0 +1,21 @@
+$ gdb ./minesweeper
+$ b 280
+$ run 2 3 1
+(gdb) print b->board[0][0]
+$1 = -1
+(gdb) print b->board[1][0]
+$2 = -1
+(gdb) print b->board[2][0]
+$3 = -1
+(gdb) print b->board[0][1]
+$4 = -1
+(gdb) print b->board[1][1]
+$5 = -2
+(gdb) print b->board[2][1]
+$6 = -1
+
+From the output, I know B[1][1] is the mine.
+
+
+
+

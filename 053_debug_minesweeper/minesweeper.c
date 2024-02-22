@@ -30,32 +30,32 @@ void printBoard(board_t * b) {
   int found = 0;
   printf("    ");
   for (int x = 0; x < b->width; x++) {
-    printf("%d", x / 10);
+    printf("%d", x / 10);  //打印横坐标的十位数
   }
   printf("\n    ");
   for (int x = 0; x < b->width; x++) {
-    printf("%d", x % 10);
+    printf("%d", x % 10); //打印横坐标的个位数
   }
-  printf("\n----");
+  printf("\n----"); //打印横线，分隔棋盘
   for (int x = 0; x < b->width; x++) {
-    printf("-");
+    printf("-");  
   }
   printf("\n");
-  for (int y = 0; y < b->height; y++) {
+  for (int y = 0; y < b->height; y++) { //遍历棋盘
     printf("%2d: ", y % 100);
     for (int x = 0; x < b->width; x++) {
       if (b->board[y][x] == KNOWN_MINE) {
-        printf("*");
+        printf("*");  //找到地雷
         found++;
       }
       else if (b->board[y][x] < 0) {
-        printf("?");
+        printf("?"); //这是啥？
       }
       else if (b->board[y][x] == 0) {
-        printf(" ");
+        printf(" "); //没地雷&没数字
       }
       else {
-        printf("%d", b->board[y][x]);
+        printf("%d", b->board[y][x]); //打印数字？
       }
     }
     printf("\n");
@@ -179,7 +179,8 @@ int maybeReveal(board_t * b, int x, int y) {
     for (int dx = -1; dx <= 1; dx++) {
       int nx = x + dx;
       int ny = y + dy;
-      if (nx >= 0 && nx < b->width) {
+      //if (nx >= 0 && nx < b->width) {
+      if (nx >= 0 && nx < b->width && ny >= 0 && ny < b->height) {
         if (b->board[ny][nx] == UNKNOWN || b->board[ny][nx] == HAS_MINE) {
           unknownSquares++;
         }

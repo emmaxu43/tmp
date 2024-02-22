@@ -1,0 +1,53 @@
+valgrind ./minesweeper 2 3 1
+==3503946== Invalid read of size 8
+==3503946==    at 0x109D50: maybeReveal (minesweeper.c:183)
+==3503946==    by 0x109FBF: determineKnownMines (minesweeper.c:212)
+==3503946==    by 0x10A140: playTurn (minesweeper.c:241)
+==3503946==    by 0x10A2F7: main (minesweeper.c:280)
+==3503946==  Address 0x4a90098 is 8 bytes before a block of size 24 alloc'd
+==3503946==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3503946==    by 0x10A3B5: makeBoard (future.c:6)
+==3503946==    by 0x10A2D3: main (minesweeper.c:277)
+==3503946== 
+==3503946== Invalid read of size 4
+==3503946==    at 0x109D5F: maybeReveal (minesweeper.c:183)
+==3503946==    by 0x109FBF: determineKnownMines (minesweeper.c:212)
+==3503946==    by 0x10A140: playTurn (minesweeper.c:241)
+==3503946==    by 0x10A2F7: main (minesweeper.c:280)
+==3503946==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==3503946== 
+==3503946== 
+==3503946== Process terminating with default action of signal 11 (SIGSEGV)
+==3503946==  Access not within mapped region at address 0x0
+==3503946==    at 0x109D5F: maybeReveal (minesweeper.c:183)
+==3503946==    by 0x109FBF: determineKnownMines (minesweeper.c:212)
+==3503946==    by 0x10A140: playTurn (minesweeper.c:241)
+==3503946==    by 0x10A2F7: main (minesweeper.c:280)
+==3503946==  If you believe this happened as a result of a stack
+==3503946==  overflow in your program's main thread (unlikely but
+==3503946==  possible), you can try to increase the size of the
+==3503946==  main thread stack using the --main-stacksize= flag.
+==3503946==  The main thread stack size used in this run was 8388608.
+==3503946== 
+==3503946== HEAP SUMMARY:
+==3503946==     in use at exit: 2,240 bytes in 8 blocks
+==3503946==   total heap usage: 8 allocs, 0 frees, 2,240 bytes allocated
+==3503976== LEAK SUMMARY:
+==3503976==    definitely lost: 0 bytes in 0 blocks
+==3503976==    indirectly lost: 0 bytes in 0 blocks
+==3503976==      possibly lost: 0 bytes in 0 blocks
+==3503976==    still reachable: 5,312 bytes in 8 blocks
+==3503976==         suppressed: 0 bytes in 0 blocks
+==3503976== Rerun with --leak-check=full to see details of leaked memory
+==3503976== 
+==3503976== For lists of detected and suppressed errors, rerun with: -s
+==3503976== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+Segmentation fault (core dumped)
+
+
+
+首先，Valgrind 报告了两个问题，都涉及到了 Invalid read（无效读取）。
+1. 第一个问题发生在 `minesweeper.c` 文件的第 183 行，函数 `maybeReveal` 中。它尝试读取了一个大小为 8 字节的内存块，但实际上这个内存块之前已经被释放了。
+2. 第二个问题同样是在 `minesweeper.c` 文件的第 183 行，函数 `maybeReveal` 中。这次尝试读取了一个大小为 4 字节的内存块，但这个内存块并没有被分配或者在堆栈中。
+3. Valgrind 还指出了一个潜在的堆栈溢出问题，建议可以通过 `--main-stacksize=` 标志来增加主线程的堆栈大小。
+4. 最后，Valgrind 提供了堆内存的使用和泄漏摘要。
