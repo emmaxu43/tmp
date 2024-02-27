@@ -1,0 +1,11 @@
+->>>>>>>>>>>Define two structures in the kv.h file:
+1. The first structure _kvpair_t defines a key-value pair structure.
+2. The second structure defines the structure of an array of key-value pairs and needs to include the length of the array.
+
+->>>>>>>>>>.Write four functions in the kv.c file:
+1. readKVs: Reads key-value pairs from a file, splits them into key-value pairs, stores the result into an array, and returns a kvarray_t * containing the array.
+2. freeKVs: Release the memory allocated by readKVs to ensure that no memory leaks occur.
+3. printKVs: accepts a kvarray_t * parameter and prints the contents of each key-value pair in the array.
+4. lookupValue: Accepts a kvarray_t * parameter and a string parameter to find the value matching the given key in the key-value pair array. If found, the corresponding value is returned, otherwise NULL is returned.
+
+->>>>>>These functions are tested using the main function in kv_test.c.

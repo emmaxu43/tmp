@@ -1,17 +1,18 @@
 #ifndef __KV_H__
 #define __KV_H__
-
+// This is a preprocessor directive in C to prevent repeated unclusion of header files (include protection). If __KV_H__ is not defined then define it here.
 
 struct _kvpair_t { 
   //DEFINE ME!
-
+  char *key;
+  char *value;
 };
 typedef struct _kvpair_t kvpair_t;
 
 struct _kvarray_t { 
   //DEFINE ME!
-
-
+  kvpair_t ** dict_pair;
+  size_t counts; 
 };
 typedef struct _kvarray_t kvarray_t;
 
