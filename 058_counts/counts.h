@@ -2,12 +2,17 @@
 #define __COUNTS_H__
 struct _one_count_t {
   //DEFINE ME
+  char *content;
+  int count;
 
 };
 typedef struct _one_count_t one_count_t;
 
 struct _counts_t {
   //DEFINE ME
+  one_count_t *array;
+  size_t size;
+  int unknown;
 };
 typedef struct _counts_t counts_t;
 
