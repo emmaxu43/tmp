@@ -1,14 +1,226 @@
-Grading at 02/21/2024:21:10:03.594156
+Grading at 03/06/2024:14:58:32.623720
 For commit ID a7af8315da97401766c11772f1b5cb0d34a78079
-Grading at Wed Feb 21 04:10:03 PM EST 2024
+Grading at Wed Mar  6 09:58:04 AM EST 2024
 
-Compiling 
+Replacing the object files with ours
+
+Checking that your code compiles
 rm -f *~ printSsData printFilteredSsData printLocalMax printSsPeriod
 gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsData.o -o printSsData
 gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printFilteredSsData.o -o printFilteredSsData
 gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printLocalMax.o -o printLocalMax
 gcc -std=gnu99 -Werror -Wall -pedantic -ggdb3 sunspots.c printSsPeriod.o -o printSsPeriod
-Running your test cases
-Cannot proceed without testcases.txt
 
-Overall Grade: NO GRADE YET
+=========================================================================
+Step 1
+
++-----------------------------------------------------------------------+
+Test case 1.1
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.2
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.3
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.4
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.5
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.6
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.7
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.8
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.9
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.10
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 1.11
+Your program successfully indicated a failure case
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.12
+Your program did not indicate a failure case
+                                                         [0/1]
++-----------------------------------------------------------------------+
+Test case 1.13
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 1.14
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 1.15
+Your file matched the expected output
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.16
+Your file matched the expected output
+                                                         [1/1]
++-----------------------------------------------------------------------+
+Test case 1.17
+Your file matched the expected output
+                                                         [1/1]
+
+Step 1 total                                             [23/25]
+
+=========================================================================
+Step 2
+
++-----------------------------------------------------------------------+
+Test case 2.1
+Your program successfully indicated a failure case
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 2.2
+Your program successfully indicated a failure case
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 2.3
+Your file matched the expected output
+                                                         [10/10]
++-----------------------------------------------------------------------+
+Test case 2.4
+Your file matched the expected output
+                                                         [5/5]
++-----------------------------------------------------------------------+
+Test case 2.5
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 2.6
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 2.7
+Your file matched the expected output
+                                                         [2/2]
+
+Step 2 total                                             [25/25]
+
+=========================================================================
+Step 3
+
++-----------------------------------------------------------------------+
+Test case 3.1
+Your program successfully indicated a failure case
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.2
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.3
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.4
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.5
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.6
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.7
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.8
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.9
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 3.10
+Your file matched the expected output
+                                                         [2/2]
+
+Step 3 total                                             [20/20]
+
+=========================================================================
+Step 4
+
++-----------------------------------------------------------------------+
+Test case 4.1
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 4.2
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 4.3
+Your file matched the expected output
+                                                         [4/4]
++-----------------------------------------------------------------------+
+Test case 4.4
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 4.5
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 4.6
+Your file matched the expected output
+                                                         [2/2]
++-----------------------------------------------------------------------+
+Test case 4.7
+Your file matched the expected output
+                                                         [2/2]
+
+Step 4 total                                             [20/20]
+
+=========================================================================
+Code quality
+
+Abstration:    Good
+Naming:        Good
+Formatting:    Excellent
+Documentation: Excellent
+Comments from your grader:
+Great work! You have formatted your code in an organized way, left sufficient 
+space, and have commented major code blocks. One thing that can be improved on 
+is to apply more abstraction. parseLine() and meanFilter() are too long and 
+bulky. Clearly, there are procedures/functionalities that can be abstracted 
+out. Another small issue is inconsistent naming. You used snakecase for most 
+parts, but for the last function, you used camelcase. Moreover, you have 
+adequate amount of comments, but it would be better to document the 
+functionality of each function in the header file. It doesn't have to be long. 
+For commenting/explaining implementation, try to make sure they are tidy, and 
+you don't need to comment the obvious parts. Overall, you have done a good job, 
+and please do keep up!
+
+Quality total                                            [9.25/10]
+
+=========================================================================
+
+Overall Grade: 97
