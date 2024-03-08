@@ -5,7 +5,7 @@
 
 int * initArray(int * array, int n){
   for (int i = 0; i < n; i++){
-    array[i] = i;
+    array[i] = i;  //数组被初始化到array[7]
   }
   return array;
 }
@@ -13,7 +13,7 @@ int * initArray(int * array, int n){
 int * aFunction(int n) {
   int myArray[n];
   
-  int * ptr = initArray(myArray, n-1);
+  int * ptr = initArray(myArray, n-1); //初始化到array[6]
   int total = 0;
   for (int i = 0; i <= n; i++) {
     printf("%d\n", myArray[i]);

@@ -1,0 +1,7 @@
+<< 是位移操作符，表示向左移动bit位
+
+binary_str  = bin(number)[2:] # remove the prefix '0b'
+
+index = len(binary_str) - 1 - bit #二进制最右边为0位，所以要从右边开始索引
+
+is_bit_one = binary_str[index] == '1' # boolean检查索引的字符是否为1

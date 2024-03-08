@@ -1,8 +1,8 @@
 b
-c
+c //用**argv表示array of pointers; *argv表示single pointer of a string/char
 b
 d
-c
+c //fprintf used in "w" write mode or "a" append mode -> write formatted info into a file stream. 
 b
 d
 d

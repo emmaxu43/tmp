@@ -44,8 +44,8 @@ void printCounts(counts_t * c, FILE * outFile) {
 void freeCounts(counts_t * c) {
   //WRITE ME
   for (size_t i = 0; i < c->size; ++i) {
-    free(c->array[i].content);
+    free(c->array[i].content); //释放字符串内存
   }
-  free(c->array);
-  free(c);
+  free(c->array); //释放数组内存
+  free(c); //释放结构体指针的内存
 }

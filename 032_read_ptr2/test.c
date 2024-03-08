@@ -4,7 +4,7 @@
 int f(int ** r, int ** s) {
   int temp = ** r;
   int temp2 = **s;
-  int * z = *r;
+  int * z = *r; //初始化新指针z，让z指向r指向的值。
   *r = *s;
   *s = z;
   printf("**r = %d\n",**r);

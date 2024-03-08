@@ -9,7 +9,7 @@ j *p point to second 2nd row
 e 3*4*4=48 bytes
 c 3*8=24 bytes
 g 24+3*4*4=72 bytes 
-b 
+b  只有b正确；matrix[0][0]是lvalue但它不是新声明中特有的； 
 a  
 d
 c

@@ -7,8 +7,8 @@ int getNthBit(uint32_t number, int bit) {
     printf("Bit %d is invalid\n", bit);
     exit (EXIT_FAILURE);
   }
-  return (number & (1<<bit)) != 0;
-}
+  return (number & (1<<bit)) != 0;  // 1<<bit创建只有bit位为1，其他位为0的数.逻辑运算后，是在判断是否指定位为1，true返回1，false返回0
+} 
 
 void numToBits(uint32_t * nums, int nNums, int * bits, int nBits) {
   if (nBits < nNums * 32) {
