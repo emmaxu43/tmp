@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include "rand_story.h"
 #include "provided.h"
-#include <stdbool.h>
 
 // STEP1
 int parse_story(const char *filename, char **story) {
@@ -216,69 +215,3 @@ void replace_blanks_with_word(char *story, const char *replacement) {
 }
 
 
-
-// STEP4
-const char *choose_word_from_category(char *category, catarray_t *cats, bool no_reuse) {
-    for (size_t i = 0; i < cats->n; i++) {
-        if (strcmp(cats->arr[i].name, category) == 0) {
-            if (cats->arr[i].n_words == 0) {
-                fprintf(stderr, "Error: Category '%s' has no words\n", category);
-                exit(EXIT_FAILURE);
-            }
-
-            size_t idx = rand() % cats->arr[i].n_words;
-            const char *word = cats->arr[i].words[idx];
-
-            if (no_reuse) {
-                // Remove the chosen word from the category's word list
-                cats->arr[i].words[idx] = cats->arr[i].words[cats->arr[i].n_words - 1];
-                cats->arr[i].n_words--;
-            }
-
-            return word;
-        }
-    }
-
-    fprintf(stderr, "Error: Category '%s' not found\n", category);
-    exit(EXIT_FAILURE);
-}
-
-
-
-void replace_blanks_no_reuse(char *story, category_t *used_words, catarray_t *cats, bool no_reuse) {
-    char *blank_start = strstr(story, "_");
-    while (blank_start != NULL) {
-        char *blank_end = strstr(blank_start + 1, "_");
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            exit(EXIT_FAILURE);
-        }
-
-        char category_name[blank_end - blank_start];
-        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
-        category_name[blank_end - blank_start - 1] = '\0';
-
-        const char *replacement;
-        if (isdigit(category_name[0])) {
-            int idx = atoi(category_name);
-            if (idx > 0 && idx <= used_words->n_words) {
-                replacement = used_words->words[used_words->n_words - idx];
-            } else {
-                fprintf(stderr, "Error: Invalid backreference '%s'\n", category_name);
-                exit(EXIT_FAILURE);
-            }
-        } else {
-            replacement = choose_word_from_category(category_name, cats, no_reuse);
-            if (replacement != NULL) {
-                used_words->words = realloc(used_words->words, (used_words->n_words + 1) * sizeof(char *));
-                used_words->words[used_words->n_words] = strdup(replacement);
-                used_words->n_words++;
-            }
-        }
-
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        blank_start = strstr(blank_start + strlen(replacement), "_");
-    }
-}

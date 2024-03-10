@@ -18,8 +18,7 @@ adjective:peaceful
 
 The program might produce:
 
-Once upon a time, there was a walrus who lived in a very peaceful
-cave.
+Once upon a time, there was a walrus who lived in a very peaceful cave.
 
 The story template will be provided in an input file, where the "blanks"
 are the category name preceded and followed by an underscore
