@@ -1,6 +1,6 @@
-Grading at 03/21/2024:21:48:24.937548
-For commit ID ea1b68aba481548ea09c091693dedb8ac0b85e5e
-Grading at Thu Mar 21 05:48:22 PM EDT 2024
+Grading at 03/21/2024:21:50:37.410874
+For commit ID 9724b750552cd8304b4d6339fca55fb02f73a857
+Grading at Thu Mar 21 05:50:35 PM EDT 2024
 Doing some basic checking for your submission
 
 Step 1
@@ -35,33 +35,7 @@ Now running YOUR tests for step 2
 2.1: Current test is story-step2 words.txt
 -----------------------------
 Your output looks good. Lets check valgrind
-Valgrind reported errors or memory leaks:
-==10717== Memcheck, a memory error detector
-==10717== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==10717== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==10717== Command: ./story-step2 words.txt
-==10717== Parent PID: 10716
-==10717== 
-==10717== 
-==10717== HEAP SUMMARY:
-==10717==     in use at exit: 27 bytes in 3 blocks
-==10717==   total heap usage: 25 allocs, 22 frees, 9,101 bytes allocated
-==10717== 
-==10717== 27 bytes in 3 blocks are definitely lost in loss record 1 of 1
-==10717==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==10717==    by 0x490C58E: strdup (strdup.c:42)
-==10717==    by 0x1098EA: read_categories (rand_story.c:101)
-==10717==    by 0x109519: main (story-step2.c:14)
-==10717== 
-==10717== LEAK SUMMARY:
-==10717==    definitely lost: 27 bytes in 3 blocks
-==10717==    indirectly lost: 0 bytes in 0 blocks
-==10717==      possibly lost: 0 bytes in 0 blocks
-==10717==    still reachable: 0 bytes in 0 blocks
-==10717==         suppressed: 0 bytes in 0 blocks
-==10717== 
-==10717== For lists of detected and suppressed errors, rerun with: -s
-==10717== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+Valgrind was clean
 
 Step 3
 Checking that story-step3 compiles
