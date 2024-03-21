@@ -1,11 +1,11 @@
-Grading at 03/21/2024:21:50:37.410874
-For commit ID 9724b750552cd8304b4d6339fca55fb02f73a857
-Grading at Thu Mar 21 05:50:35 PM EDT 2024
+Grading at 03/21/2024:23:05:10.063492
+For commit ID a9afef6039f9bc604fc40abd90bd17f9b1f72818
+Grading at Thu Mar 21 07:05:08 PM EDT 2024
 Doing some basic checking for your submission
 
 Step 1
 Checking that story-step1 compiles
-rm -f *~ story-step1 story-step2  story-step1.o story-step2.o rand_story.o
+rm -f *~ story-step1 story-step2 story-step3  story-step1.o story-step2.o story-step3.o rand_story.o
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c rand_story.c
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c story-step1.c
 gcc -o story-step1 story-step1.o rand_story.o provided.o
@@ -23,7 +23,7 @@ Valgrind was clean
 
 Step 2
 Checking that story-step2 compiles
-rm -f *~ story-step1 story-step2  story-step1.o story-step2.o rand_story.o
+rm -f *~ story-step1 story-step2 story-step3  story-step1.o story-step2.o story-step3.o rand_story.o
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c rand_story.c
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c story-step2.c
 gcc -o story-step2 story-step2.o rand_story.o provided.o
@@ -39,7 +39,7 @@ Valgrind was clean
 
 Step 3
 Checking that story-step3 compiles
-rm -f *~ story-step1 story-step2  story-step1.o story-step2.o rand_story.o
+rm -f *~ story-step1 story-step2 story-step3  story-step1.o story-step2.o story-step3.o rand_story.o
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c rand_story.c
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c story-step3.c
 gcc -o story-step3 story-step3.o rand_story.o provided.o
@@ -51,13 +51,12 @@ Now running YOUR tests for step 3
 3.1: Current test is story-step3 words.txt story2.txt
 -----------------------------
 You considered this a failure case:
-malloc(): corrupted top size
-timeout: the monitored command dumped core
+Category  not found
 But we did not.
 
 Step 4
 Checking that story-step4 compiles
-rm -f *~ story-step1 story-step2  story-step1.o story-step2.o rand_story.o
+rm -f *~ story-step1 story-step2 story-step3  story-step1.o story-step2.o story-step3.o rand_story.o
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c rand_story.c
 gcc -std=gnu99 -pedantic -Wall -Werror -ggdb3 -c story-step4.c
 The code did not compile!
