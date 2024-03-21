@@ -41,9 +41,9 @@ int main(int argc, char *argv[]) {
     category_t used_words = {"used_words", NULL, 0};
 
     if (no_reuse) {
-        replace_blanks_no_reuse(story, &used_words, &cats, no_reuse);
+        replace_blanks_no_reuse(&story, &used_words, &cats, no_reuse);
     } else {
-        replace_blanks(story, &used_words, &cats);
+        replace_blanks(&story, &used_words, &cats);
     }
 
     printf("%s\n", story);

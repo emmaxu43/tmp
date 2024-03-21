@@ -43,6 +43,45 @@ int parse_story(const char *filename, char **story) {
 }
 
 
+void replace_blanks(char **story, const char* replacement) {
+    printf("Starting word replacement\n");
+    char *blank_start = strchr(*story, '_');
+    char *blank_end;
+
+    while (blank_start != NULL) {
+        blank_end = strchr(blank_start + 1, '_');
+        if (blank_end == NULL) {
+            fprintf(stderr, "Error: Missing closing underscore\n");
+            return;
+        }
+
+        size_t placeholder_length = blank_end - blank_start - 1;
+        size_t replacement_length = strlen(replacement);
+
+        // Reallocate memory if necessary
+        if (replacement_length > placeholder_length) {
+            size_t story_length = strlen(*story);
+            size_t new_length = story_length + replacement_length - placeholder_length;
+            *story = realloc(*story, new_length + 1);
+            if (*story == NULL) {
+                fprintf(stderr, "Memory reallocation error\n");
+                return;
+            }
+            blank_start = *story + (blank_start - *story);
+            blank_end = *story + (blank_end - *story);
+        }
+
+        // Replace the placeholder with the replacement word
+        memmove(blank_start + replacement_length, blank_end + 1, strlen(blank_end + 1) + 1);
+        memcpy(blank_start, replacement, replacement_length);
+
+        // Find the next placeholder
+        blank_start = strchr(blank_start + replacement_length, '_');
+    }
+}
+
+
+/*
 void replace_blanks(char *story, const char *replacement) {
     printf("Starting word replacement\n");
     char *blank_start = strchr(story, '_');
@@ -64,6 +103,7 @@ void replace_blanks(char *story, const char *replacement) {
         blank_start = strchr(blank_start + strlen(replacement), '_');
     }
 }
+*/
 
 
 /*
