@@ -105,6 +105,96 @@ int read_categories(const char *filename, catarray_t *cats) {
         for (size_t i = 0; i < cats->n; i++) {
             if (strcmp(cats->arr[i].name, category_name) == 0) {
                 category_index = i;
+                free(category_name);  // Free the duplicate category name
+                break;
+            }
+        }
+
+        // If category doesn't exist, create a new one
+        if (category_index == -1) {
+            cats->arr = realloc(cats->arr, (cats->n + 1) * sizeof(category_t));
+            if (cats->arr == NULL) {
+                fprintf(stderr, "Memory allocation error\n");
+                fclose(file);
+                free(line);
+                free(category_name);  // Free the category name if memory allocation fails
+                return 0;
+            }
+            cats->arr[cats->n].name = category_name;
+            cats->arr[cats->n].n_words = 0;
+            cats->arr[cats->n].words = NULL;
+            category_index = cats->n;
+            cats->n++;
+        }
+
+        // Set words
+        char *word = strtok(colon + 1, " \t\n");
+        while (word != NULL) {
+            // Allocate memory for the new word
+            cats->arr[category_index].words = realloc(cats->arr[category_index].words, (cats->arr[category_index].n_words + 1) * sizeof(char *));
+            if (cats->arr[category_index].words == NULL) {
+                fprintf(stderr, "Memory allocation error\n");
+                fclose(file);
+                free(line);
+                return 0;
+            }
+
+            cats->arr[category_index].words[cats->arr[category_index].n_words] = strdup(word);
+            if (cats->arr[category_index].words[cats->arr[category_index].n_words] == NULL) {
+                fprintf(stderr, "Memory allocation error\n");
+                fclose(file);
+                free(line);
+                return 0;
+            }
+
+            word = strtok(NULL, " \t\n");
+            cats->arr[category_index].n_words++;
+        }
+    }
+
+    fclose(file);
+    free(line);
+    return 1;
+}
+
+/*
+int read_categories(const char *filename, catarray_t *cats) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        fprintf(stderr, "Error opening file %s\n", filename);
+        return 0;
+    }
+
+    cats->n = 0;
+    cats->arr = NULL;
+
+    char *line = NULL;
+    size_t line_length = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &line_length, file)) != -1) {
+        char *colon = strchr(line, ':');
+        if (colon == NULL) {
+            fprintf(stderr, "Error: Invalid format in file %s\n", filename);
+            fclose(file);
+            free(line);
+            return 0;
+        }
+
+        // Remove trailing newline character
+        if (line[read - 1] == '\n') {
+            line[read - 1] = '\0';
+        }
+
+        // Set category name
+        *colon = '\0';  // Null-terminate the category name at the colon
+        char *category_name = strdup(line);
+
+        // Check if category already exists
+        int category_index = -1;
+        for (size_t i = 0; i < cats->n; i++) {
+            if (strcmp(cats->arr[i].name, category_name) == 0) {
+                category_index = i;
                 break;
             }
         }
@@ -155,7 +245,7 @@ int read_categories(const char *filename, catarray_t *cats) {
     free(line);
     return 1;
 }
-
+*/
 
 // STEP3
 void replace_blanks(char *story, category_t *used_words, catarray_t *cats) {
