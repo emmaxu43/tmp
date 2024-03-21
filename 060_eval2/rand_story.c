@@ -8,7 +8,7 @@
 
 // STEP1
 int parse_story(const char *filename, char **story) {
-    printf("Trying to parse %s\n",filename);	
+    // printf("Trying to parse %s\n",filename);	
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Error opening file %s\n", filename);
@@ -41,7 +41,7 @@ int parse_story(const char *filename, char **story) {
     }
 
     fclose(file);
-    printf("%s",*story); // Evaluate text parsing
+
     return 0;
 }
 
