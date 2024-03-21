@@ -3,6 +3,7 @@
 #include "rand_story.h"
 #include "provided.h"
 
+
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <story_file>\n", argv[0]);
@@ -14,9 +15,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    replace_blanks_with_word(story, "cat");
+    replace_blanks(story, NULL);
+
     printf("%s\n", story);
     free(story);
-
     return 0;
 }

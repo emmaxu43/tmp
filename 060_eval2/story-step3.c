@@ -5,6 +5,7 @@
 #include "rand_story.h"
 #include "provided.h"
 
+
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <words_file> <story_file>\n", argv[0]);
@@ -23,16 +24,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Create a category to store used words
-    category_t used_words = {"used_words", NULL, 0};
-
-    replace_blanks(story, &used_words, &cats);
+    replace_blanks(story, &cats);
 
     printf("%s\n", story);
 
     // Free memory
     free(story);
-    free(used_words.words);
     for (size_t i = 0; i < cats.n; i++) {
         free(cats.arr[i].name);
         for (size_t j = 0; j < cats.arr[i].n_words; j++) {

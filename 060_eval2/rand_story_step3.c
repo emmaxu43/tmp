@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "rand_story.h"
-#include "provided.h"
 
-// STEP1
+
 int parse_story(const char *filename, char **story) {
-    printf("Trying to parse %s\n",filename);	
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Error opening file %s\n", filename);
@@ -40,35 +37,11 @@ int parse_story(const char *filename, char **story) {
     }
 
     fclose(file);
-    printf("%s",*story); // Evaluate text parsing
     return 0;
 }
 
-/*
-void replace_blanks(char *story, const char *replacement) {
-    printf("Starting word replacement\n");
-    char *blank_start = strchr(story, '_');
-    char *blank_end;
-
-    while (blank_start != NULL) {
-        blank_end = strchr(blank_start + 1, '_');
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            return;
-        }
-
-        // Replace the placeholder with the replacement word
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        // Find the next placeholder
-        blank_start = strchr(blank_start + strlen(replacement), '_');
-    }
-}
-*/
 
 
-// STEP2
 int read_categories(const char *filename, catarray_t *cats) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -106,6 +79,7 @@ int read_categories(const char *filename, catarray_t *cats) {
         for (size_t i = 0; i < cats->n; i++) {
             if (strcmp(cats->arr[i].name, category_name) == 0) {
                 category_index = i;
+                free(category_name); 
                 break;
             }
         }
@@ -117,6 +91,7 @@ int read_categories(const char *filename, catarray_t *cats) {
                 fprintf(stderr, "Memory allocation error\n");
                 fclose(file);
                 free(line);
+                free(category_name);  // Free the category name if memory allocation fails
                 return 0;
             }
             cats->arr[cats->n].name = category_name;
@@ -157,61 +132,62 @@ int read_categories(const char *filename, catarray_t *cats) {
 }
 
 
-// STEP3
-void replace_blanks(char *story, category_t *used_words, catarray_t *cats) {
+void replace_blanks(char *story, catarray_t *cats) {
     char *blank_start = strstr(story, "_");
+    category_t used_words = {NULL, 0, 0};
+
     while (blank_start != NULL) {
         char *blank_end = strstr(blank_start + 1, "_");
+
         if (blank_end == NULL) {
             fprintf(stderr, "Error: Missing closing underscore\n");
             exit(EXIT_FAILURE);
         }
 
-        char category_name[blank_end - blank_start];
-        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
-        category_name[blank_end - blank_start - 1] = '\0';
+        // Skip leading underscores, digits, or other characters
+        char *category_start = blank_start + 1;
+        while (!isalpha(*category_start) && category_start < blank_end) {
+            category_start++;
+        }
+
+        char category_name[blank_end - category_start + 1];
+        strncpy(category_name, category_start, blank_end - category_start);
+        category_name[blank_end - category_start] = '\0';
 
         const char *replacement;
+
         if (isdigit(category_name[0])) {
-            int idx = atoi(category_name);
-            if (idx > 0 && idx <= used_words->n_words) {
-                replacement = used_words->words[used_words->n_words - idx];
+            // Handle backreferences
+            int idx = strtol(category_name, NULL, 10);
+            if (idx > 0 && idx <= used_words.n_words) {
+                replacement = used_words.words[used_words.n_words - idx];
             } else {
                 fprintf(stderr, "Error: Invalid backreference '%s'\n", category_name);
                 exit(EXIT_FAILURE);
             }
         } else {
+            // Choose a random word from the named category
             replacement = chooseWord(category_name, cats);
             if (replacement != NULL) {
-                used_words->words = realloc(used_words->words, (used_words->n_words + 1) * sizeof(char *));
-                used_words->words[used_words->n_words] = strdup(replacement);
-                used_words->n_words++;
+                used_words.words = realloc(used_words.words, (used_words.n_words + 1) * sizeof(char *));
+                used_words.words[used_words.n_words] = strdup(replacement);
+                used_words.n_words++;
+            } else {
+                fprintf(stderr, "Error: Invalid category name '%s'\n", category_name);
+                exit(EXIT_FAILURE);
             }
         }
 
+        // Replace the blank with the chosen word
         memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
         memcpy(blank_start, replacement, strlen(replacement));
 
         blank_start = strstr(blank_start + strlen(replacement), "_");
     }
-}
 
-
-// Add a new function to replace all blanks with a single word
-void replace_blanks_with_word(char *story, const char *replacement) {
-    char *blank_start = strstr(story, "_");
-    while (blank_start != NULL) {
-        char *blank_end = strstr(blank_start + 1, "_");
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            exit(EXIT_FAILURE);
-        }
-
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        blank_start = strstr(blank_start + strlen(replacement), "_");
+    // Free the memory allocated for used_words
+    for (size_t i = 0; i < used_words.n_words; i++) {
+        free(used_words.words[i]);
     }
+    free(used_words.words);
 }
-
-
