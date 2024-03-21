@@ -149,15 +149,9 @@ void replace_blanks(char *story, catarray_t *cats) {
             exit(EXIT_FAILURE);
         }
 
-        // Skip leading underscores, digits, or other characters
-        char *category_start = blank_start + 1;
-        while (!isalpha(*category_start) && category_start < blank_end) {
-            category_start++;
-        }
-
-        char category_name[blank_end - category_start + 1];
-        strncpy(category_name, category_start, blank_end - category_start);
-        category_name[blank_end - category_start] = '\0';
+        char category_name[blank_end - blank_start];
+        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
+        category_name[blank_end - blank_start - 1] = '\0';
 
         const char *replacement;
 
@@ -178,7 +172,7 @@ void replace_blanks(char *story, catarray_t *cats) {
                 used_words.words[used_words.n_words] = strdup(replacement);
                 used_words.n_words++;
             } else {
-                fprintf(stderr, "Error: Invalid category name '%s'\n", category_name);
+                fprintf(stderr, "Error: Category '%s' not found\n", category_name);
                 exit(EXIT_FAILURE);
             }
         }
