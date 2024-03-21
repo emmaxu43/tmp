@@ -1,6 +1,6 @@
-Grading at 03/21/2024:23:05:10.063492
-For commit ID a9afef6039f9bc604fc40abd90bd17f9b1f72818
-Grading at Thu Mar 21 07:05:08 PM EDT 2024
+Grading at 03/21/2024:23:10:32.565036
+For commit ID 5e2481e171f9080dd6a30230aed54303ec35bf7a
+Grading at Thu Mar 21 07:10:30 PM EDT 2024
 Doing some basic checking for your submission
 
 Step 1
@@ -51,7 +51,8 @@ Now running YOUR tests for step 3
 3.1: Current test is story-step3 words.txt story2.txt
 -----------------------------
 You considered this a failure case:
-Category  not found
+malloc(): corrupted top size
+timeout: the monitored command dumped core
 But we did not.
 
 Step 4
