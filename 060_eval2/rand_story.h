@@ -5,7 +5,6 @@
 #include <stdbool.h>
 
 int parse_story(const char *filename, char **story);
-//void replace_blanks(char *story, const char *replacement);
 int read_categories(const char *filename, catarray_t *cats);
 void replace_blanks(char *story, category_t *used_words, catarray_t *cats);
 void replace_blanks_with_word(char *story, const char *replacement);

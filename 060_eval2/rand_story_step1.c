@@ -5,7 +5,6 @@
 
 
 int parse_story(const char *filename, char **story) {
-    // printf("Trying to parse %s\n",filename);	
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Error opening file %s\n", filename);
@@ -43,7 +42,6 @@ int parse_story(const char *filename, char **story) {
 
 
 void replace_blanks(char **story, const char* replacement) {
-    printf("Starting word replacement\n");
     char *blank_start = strchr(*story, '_');
     char *blank_end;
 
@@ -70,7 +68,7 @@ void replace_blanks(char **story, const char* replacement) {
             blank_end = *story + (blank_end - *story);
         }
 
-        // Replace the placeholder with the replacement word
+        // Replace the placeholder with 'cat'
         memmove(blank_start + replacement_length, blank_end + 1, strlen(blank_end + 1) + 1);
         memcpy(blank_start, replacement, replacement_length);
 
@@ -80,47 +78,3 @@ void replace_blanks(char **story, const char* replacement) {
 }
 
 
-/*
-void replace_blanks(char *story, const char *replacement) {
-    printf("Starting word replacement\n");
-    char *blank_start = strchr(story, '_');
-    char *blank_end;
-
-    while (blank_start != NULL) {
-        blank_end = strchr(blank_start + 1, '_');
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            return;
-        }
-
-
-        // Replace the placeholder with the replacement word
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        // Find the next placeholder
-        blank_start = strchr(blank_start + strlen(replacement), '_');
-    }
-}
-*/
-
-
-/*
-void replace_blanks(char *story, const char *replacement) {
-    printf("Starting word replacement\n");
-    char *blank_start = strchr(story, '_');
-    char *blank_end;
-
-    while (blank_start != NULL) {
-        blank_end = strchr(blank_start + 1, '_');
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            return;
-        }
-
-        // Replace the blank with the replacement word
-        strncpy(blank_start, replacement, blank_end - blank_start + 1);
-        blank_start = strchr(blank_end + 1, '_');
-    }
-}
-*/

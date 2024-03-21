@@ -8,7 +8,6 @@
 
 // STEP1
 int parse_story(const char *filename, char **story) {
-    // printf("Trying to parse %s\n",filename);	
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Error opening file %s\n", filename);
@@ -47,7 +46,6 @@ int parse_story(const char *filename, char **story) {
 
 /*
 void replace_blanks(char *story, const char *replacement) {
-    printf("Starting word replacement\n");
     char *blank_start = strchr(story, '_');
     char *blank_end;
 
@@ -118,7 +116,8 @@ int read_categories(const char *filename, catarray_t *cats) {
                 fprintf(stderr, "Memory allocation error\n");
                 fclose(file);
                 free(line);
-                return 0;
+    		free(category_name); 
+    		return 0;
             }
             cats->arr[cats->n].name = category_name;
             cats->arr[cats->n].n_words = 0;
