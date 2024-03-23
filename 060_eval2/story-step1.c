@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    replace_blanks(story, NULL);
+    replace_blanks(&story, NULL);
 
     printf("%s\n", story);
     free(story);

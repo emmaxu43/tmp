@@ -36,14 +36,13 @@ int parse_story(const char *filename, char **story) {
         fprintf(stderr, "Error reading file %s\n", filename);
         free(*story);
         fclose(file);
-	return 1;
+        return 1;
     }
 
     fclose(file);
 
     return 0;
 }
-
 
 
 // STEP2
@@ -137,6 +136,7 @@ int read_categories(const char *filename, catarray_t *cats) {
 }
 
 // STEP3
+/*
 void replace_blanks(char *story, catarray_t *cats) {
     char *blank_start = strstr(story, "_");
     category_t used_words = {NULL, 0, 0};
@@ -199,10 +199,10 @@ void replace_blanks(char *story, catarray_t *cats) {
     }
     free(used_words.words);
 }
+*/
 
-/*
-void replace_blanks(char *story, catarray_t *cats) {
-    char *blank_start = strstr(story, "_");
+void replace_blanks(char **story, catarray_t *cats) {
+    char *blank_start = strstr(*story, "_");
     category_t used_words = {NULL, 0, 0};
 
     while (blank_start != NULL) {
@@ -213,9 +213,8 @@ void replace_blanks(char *story, catarray_t *cats) {
             exit(EXIT_FAILURE);
         }
 
-        char category_name[blank_end - blank_start];
-        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
-        category_name[blank_end - blank_start - 1] = '\0';
+        size_t category_len = blank_end - blank_start - 1;
+        char *category_name = strndup(blank_start + 1, category_len);
 
         const char *replacement;
 
@@ -241,12 +240,21 @@ void replace_blanks(char *story, catarray_t *cats) {
             }
         }
 
+        size_t blank_len = blank_end - blank_start + 1;
+        size_t replacement_len = strlen(replacement);
 
-        // Replace the blank with the chosen word
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
+        // Resize the story buffer if necessary
+        size_t story_len = strlen(*story);
+        size_t new_len = story_len - blank_len + replacement_len;
+        *story = realloc(*story, new_len + 1);
 
-        blank_start = strstr(blank_start + strlen(replacement), "_");
+        // Move the remaining story content to make room for the replacement
+        memmove(blank_start + replacement_len, blank_end + 1, story_len - (blank_end - *story) + 1);
+        // Copy the replacement word into the blank space
+        memcpy(blank_start, replacement, replacement_len);
+
+        free(category_name);
+        blank_start = strstr(blank_start + replacement_len, "_");
     }
 
     // Free the memory allocated for used_words
@@ -255,7 +263,5 @@ void replace_blanks(char *story, catarray_t *cats) {
     }
     free(used_words.words);
 }
-*/
-
 
 

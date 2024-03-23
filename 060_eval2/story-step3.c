@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    replace_blanks(story, &cats);
+    replace_blanks(&story, &cats);
 
     printf("%s\n", story);
 
