@@ -149,6 +149,70 @@ void replace_blanks(char *story, catarray_t *cats) {
             exit(EXIT_FAILURE);
         }
 
+        size_t category_len = blank_end - blank_start - 1;
+        char *category_name = strndup(blank_start + 1, category_len);
+
+        const char *replacement;
+
+        if (isdigit(category_name[0])) {
+            // Handle backreferences
+            int idx = strtol(category_name, NULL, 10);
+            if (idx > 0 && idx <= used_words.n_words) {
+                replacement = used_words.words[used_words.n_words - idx];
+            } else {
+                fprintf(stderr, "Error: Invalid backreference '%s'\n", category_name);
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            // Choose a random word from the named category
+            replacement = chooseWord(category_name, cats);
+            if (replacement != NULL) {
+                used_words.words = realloc(used_words.words, (used_words.n_words + 1) * sizeof(char *));
+                used_words.words[used_words.n_words] = strdup(replacement);
+                used_words.n_words++;
+            } else {
+                fprintf(stderr, "Error: Category '%s' not found\n", category_name);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        size_t blank_len = blank_end - blank_start + 1;
+        size_t replacement_len = strlen(replacement);
+
+        // Resize the story buffer if necessary
+        size_t story_len = strlen(story);
+        size_t new_len = story_len - blank_len + replacement_len;
+        story = realloc(story, new_len + 1);
+
+        // Move the remaining story content to make room for the replacement
+        memmove(blank_start + replacement_len, blank_end + 1, story_len - (blank_end - story) + 1);
+        // Copy the replacement word into the blank space
+        memcpy(blank_start, replacement, replacement_len);
+
+        free(category_name);
+        blank_start = strstr(blank_start + replacement_len, "_");
+    }
+
+    // Free the memory allocated for used_words
+    for (size_t i = 0; i < used_words.n_words; i++) {
+        free(used_words.words[i]);
+    }
+    free(used_words.words);
+}
+
+/*
+void replace_blanks(char *story, catarray_t *cats) {
+    char *blank_start = strstr(story, "_");
+    category_t used_words = {NULL, 0, 0};
+
+    while (blank_start != NULL) {
+        char *blank_end = strstr(blank_start + 1, "_");
+
+        if (blank_end == NULL) {
+            fprintf(stderr, "Error: Missing closing underscore\n");
+            exit(EXIT_FAILURE);
+        }
+
         char category_name[blank_end - blank_start];
         strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
         category_name[blank_end - blank_start - 1] = '\0';
@@ -177,6 +241,7 @@ void replace_blanks(char *story, catarray_t *cats) {
             }
         }
 
+
         // Replace the blank with the chosen word
         memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
         memcpy(blank_start, replacement, strlen(replacement));
@@ -190,90 +255,7 @@ void replace_blanks(char *story, catarray_t *cats) {
     }
     free(used_words.words);
 }
-
-
-/*
-// Add a new function to replace all blanks with a single word
-void replace_blanks_with_word(char *story, const char *replacement) {
-    char *blank_start = strstr(story, "_");
-    while (blank_start != NULL) {
-        char *blank_end = strstr(blank_start + 1, "_");
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            exit(EXIT_FAILURE);
-        }
-
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        blank_start = strstr(blank_start + strlen(replacement), "_");
-    }
-}
 */
 
 
-// STEP4
-const char *choose_word_from_category(char *category, catarray_t *cats, bool no_reuse) {
-    for (size_t i = 0; i < cats->n; i++) {
-        if (strcmp(cats->arr[i].name, category) == 0) {
-            if (cats->arr[i].n_words == 0) {
-                fprintf(stderr, "Error: Category '%s' has no words\n", category);
-                exit(EXIT_FAILURE);
-            }
 
-            size_t idx = rand() % cats->arr[i].n_words;
-            const char *word = cats->arr[i].words[idx];
-
-            if (no_reuse) {
-                // Remove the chosen word from the category's word list
-                cats->arr[i].words[idx] = cats->arr[i].words[cats->arr[i].n_words - 1];
-                cats->arr[i].n_words--;
-            }
-
-            return word;
-        }
-    }
-
-    fprintf(stderr, "Error: Category '%s' not found\n", category);
-    exit(EXIT_FAILURE);
-}
-
-
-
-void replace_blanks_no_reuse(char *story, category_t *used_words, catarray_t *cats, bool no_reuse) {
-    char *blank_start = strstr(story, "_");
-    while (blank_start != NULL) {
-        char *blank_end = strstr(blank_start + 1, "_");
-        if (blank_end == NULL) {
-            fprintf(stderr, "Error: Missing closing underscore\n");
-            exit(EXIT_FAILURE);
-        }
-
-        char category_name[blank_end - blank_start];
-        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
-        category_name[blank_end - blank_start - 1] = '\0';
-
-        const char *replacement;
-        if (isdigit(category_name[0])) {
-            int idx = atoi(category_name);
-            if (idx > 0 && idx <= used_words->n_words) {
-                replacement = used_words->words[used_words->n_words - idx];
-            } else {
-                fprintf(stderr, "Error: Invalid backreference '%s'\n", category_name);
-                exit(EXIT_FAILURE);
-            }
-        } else {
-            replacement = choose_word_from_category(category_name, cats, no_reuse);
-            if (replacement != NULL) {
-                used_words->words = realloc(used_words->words, (used_words->n_words + 1) * sizeof(char *));
-                used_words->words[used_words->n_words] = strdup(replacement);
-                used_words->n_words++;
-            }
-        }
-
-        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
-        memcpy(blank_start, replacement, strlen(replacement));
-
-        blank_start = strstr(blank_start + strlen(replacement), "_");
-    }
-}

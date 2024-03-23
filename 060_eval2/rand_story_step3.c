@@ -131,7 +131,63 @@ int read_categories(const char *filename, catarray_t *cats) {
     return 1;
 }
 
+void replace_blanks(char *story, catarray_t *cats) {
+    char *blank_start = strstr(story, "_");
+    category_t used_words = {NULL, 0, 0};
 
+    while (blank_start != NULL) {
+        char *blank_end = strstr(blank_start + 1, "_");
+
+        if (blank_end == NULL) {
+            fprintf(stderr, "Error: Missing closing underscore\n");
+            exit(EXIT_FAILURE);
+        }
+
+        char category_name[blank_end - blank_start];
+        strncpy(category_name, blank_start + 1, blank_end - blank_start - 1);
+        category_name[blank_end - blank_start - 1] = '\0';
+
+        const char *replacement;
+
+        if (isdigit(category_name[0])) {
+            // Handle backreferences
+            int idx = strtol(category_name, NULL, 10);
+            if (idx > 0 && idx <= used_words.n_words) {
+                replacement = used_words.words[used_words.n_words - idx];
+            } else {
+                fprintf(stderr, "Error: Invalid backreference '%s'\n", category_name);
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            // Choose a random word from the named category
+            replacement = chooseWordWithoutReuse(category_name, cats, &used_words);
+            if (replacement != NULL) {
+                used_words.words = realloc(used_words.words, (used_words.n_words + 1) * sizeof(char *));
+                used_words.words[used_words.n_words] = strdup(replacement);
+                used_words.n_words++;
+            } else {
+                fprintf(stderr, "Error: Category '%s' not found\n", category_name);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        // Replace the blank with the chosen word
+        memmove(blank_start + strlen(replacement), blank_end + 1, strlen(blank_end + 1) + 1);
+        memcpy(blank_start, replacement, strlen(replacement));
+
+        blank_start = strstr(blank_start + strlen(replacement), "_");
+    }
+
+    // Free the memory allocated for used_words
+    for (size_t i = 0; i < used_words.n_words; i++) {
+        free(used_words.words[i]);
+    }
+    free(used_words.words);
+}
+
+
+
+/*
 void replace_blanks(char *story, catarray_t *cats) {
     char *blank_start = strstr(story, "_");
     category_t used_words = {NULL, 0, 0};
@@ -185,3 +241,4 @@ void replace_blanks(char *story, catarray_t *cats) {
     }
     free(used_words.words);
 }
+*/
