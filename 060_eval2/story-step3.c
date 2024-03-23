@@ -1,43 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 #include "rand_story.h"
-#include "provided.h"
 
+int main(int argc, char * argv[]) {
+  if (argc != 3) {
+    fprintf(stderr, "Usage: %s words.txt story.txt\n", argv[0]);
+    return EXIT_FAILURE;
+  }
+  char * wordsFile = argv[1];
+  char * storyFile = argv[2];
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        fprintf(stderr, "Usage: %s <words_file> <story_file>\n", argv[0]);
-        return 1;
-    }
+  FILE * f = openFile(wordsFile);
+  catarray_t * cats = readWordsFile(f);
 
-    catarray_t cats;
-    if (!read_categories(argv[1], &cats)) {
-        fprintf(stderr, "Error reading categories and words\n");
-        return 1;
-    }
+  parseStory(storyFile, cats, 3, 0);  //no reuse
+  freeCategories(cats);
 
-    char *story;
-    if (parse_story(argv[2], &story)) {
-        fprintf(stderr, "Error parsing story file\n");
-        return 1;
-    }
-
-    replace_blanks(&story, &cats);
-
-    printf("%s\n", story);
-
-    // Free memory
-    free(story);
-    for (size_t i = 0; i < cats.n; i++) {
-        free(cats.arr[i].name);
-        for (size_t j = 0; j < cats.arr[i].n_words; j++) {
-            free(cats.arr[i].words[j]);
-        }
-        free(cats.arr[i].words);
-    }
-    free(cats.arr);
-
-    return 0;
+  return EXIT_SUCCESS;
 }
+
