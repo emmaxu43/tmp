@@ -5,14 +5,16 @@ int main(int argc, char * argv[]) {
     fprintf(stderr, "Usage: %s words.txt story.txt\n", argv[0]);
     return EXIT_FAILURE;
   }
+
   char * wordsFile = argv[1];
   char * storyFile = argv[2];
 
-  FILE * f = openFile(wordsFile);
-  catarray_t * cats = readWordsFile(f);
+  FILE * f = open_file(wordsFile);
+  catarray_t * cats = read_words(f);
 
-  parseStory(storyFile, cats, 3, 0);  //no reuse
-  freeCategories(cats);
+  parse_story(storyFile, cats, 3, 0);  // no reuse
+
+  free_catarray(cats);
 
   return EXIT_SUCCESS;
 }

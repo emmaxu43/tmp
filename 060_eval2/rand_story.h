@@ -5,37 +5,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "provided.h"
 
 
-/* File Operation */
+category_t * init_category();
+catarray_t * init_catarray();
 
-FILE * openFile(char * filename);
-void closeFile(FILE * f);
+FILE * open_file(const char * filename);
+void close_file(FILE * f);
 
-/* Initialize */
+void free_category(category_t * cat);
+void free_catarray(catarray_t * catarray);
 
-category_t * initCat();
-catarray_t * initCatsArr();
+const char * chooseWord(char * category, catarray_t * cats);
 
-/* free */
+void parse_print_story(const char * story_file);
+int is_valid_int(char * str);
+int in_catarray(const char * word, catarray_t * catarray);
+const char * get_unique_word(char * category, catarray_t * cats, category_t * used);
+void remove_word(char * category, const char * word, catarray_t * cats);
+void parse_story(char * story_file, catarray_t * cats, int step, int no_reuse);
 
-void freeCategory(category_t * category);
-void freeCategories(catarray_t * catArray);
+char * find_category(char * line);
+char * find_word(char * line);
 
-void parseNprint(const char * story_file);
-int isValidInt(char * str);
-const char * getUniWord(char * category, catarray_t * cats, category_t * used_words);
-int checkWord(const char * word, category_t * category);
-void removeWordFromCategory(char * category, const char * word, catarray_t * cats);
-const char * getUniWord(char * category, catarray_t * cats, category_t * used_words);
-void parseStory(char * story_file, catarray_t * cats, int step, int no_reuse);
-
-char * findCat(char * line);
-char * findWord(char * line);
-int checkCat(const char * cat, catarray_t * catArray);
-catarray_t * readWordsFile(FILE * f);
+catarray_t * read_words(FILE * f);
 
 #endif
-

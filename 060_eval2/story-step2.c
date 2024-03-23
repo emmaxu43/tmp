@@ -6,10 +6,12 @@ int main(int argc, char ** argv) {
     exit(EXIT_FAILURE);
   }
 
-  FILE * f = openFile(argv[1]);
-  catarray_t * cats = readWordsFile(f);
+  FILE * f = open_file(argv[1]);
+  catarray_t * cats = read_words(f);
+
   printWords(cats);
-  freeCategories(cats);
+
+  free_catarray(cats);
+
   return EXIT_SUCCESS;
 }
-

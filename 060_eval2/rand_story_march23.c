@@ -264,7 +264,6 @@ char * find_word(char * line) {
 }
 
 // read words file
-/*
 catarray_t * read_words(FILE * f) {
   catarray_t * cats = init_catarray();
 
@@ -291,6 +290,14 @@ catarray_t * read_words(FILE * f) {
       cats->arr[cats->n].n_words = 1;
       cats->arr[cats->n].words = malloc(sizeof(*cats->arr[cats->n].words));
       cats->arr[cats->n].words[0] = word;
+      char *tmp = strdup(word);
+      free(word);
+      cats->arr[cats->n].words[0] = tmp;
+      for (size_t i = 1; i < cats->arr[cats->n].n_words; i++) {
+        char *dup_word = strdup(cats->arr[cats->n].words[i]);
+        free(cats->arr[cats->n].words[i]);
+        cats->arr[cats->n].words[i] = dup_word;
+      }
       cats->n++;
       free(cat);
     } else {
@@ -307,9 +314,9 @@ catarray_t * read_words(FILE * f) {
 
   return cats;
 }
-*/
 
 
+/*
 catarray_t * read_words(FILE * f) {
   catarray_t * cats = init_catarray();
 
@@ -351,7 +358,7 @@ catarray_t * read_words(FILE * f) {
 
   return cats;
 }
-
+*/
 
 
 /*

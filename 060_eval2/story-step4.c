@@ -9,6 +9,7 @@ int main(int argc, char * argv[]) {
   int no_reuse = 0;
   char * wordsFile;
   char * storyFile;
+
   if (argc == 4 && strcmp(argv[1], "-n") == 0) {
     no_reuse = 1;  // Set no_reuse to true.
     wordsFile = argv[2];
@@ -23,13 +24,14 @@ int main(int argc, char * argv[]) {
     return EXIT_FAILURE;
   }
 
-  FILE * f = openFile(wordsFile);
-  catarray_t * cats = readWordsFile(f);
+  FILE * f = open_file(wordsFile);
+  catarray_t * cats = read_words(f);
 
-  parseStory(storyFile, cats, 4, no_reuse);
+  parse_story(storyFile, cats, 4, no_reuse);
 
-  freeCategories(cats);
+  free_catarray(cats);
 
   return EXIT_SUCCESS;
 }
+
 
