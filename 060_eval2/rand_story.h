@@ -23,7 +23,7 @@ void parse_print_story(const char * story_file);
 int is_valid_int(char * str);
 int in_catarray(const char * word, catarray_t * catarray);
 const char * get_unique_word(char * category, catarray_t * cats, category_t * used);
-void remove_word(char * category, const char * word, catarray_t * cats);
+void remove_word(const char * category, const char * word, catarray_t * cats);
 void parse_story(char * story_file, catarray_t * cats, int step, int no_reuse);
 
 char * find_category(char * line);

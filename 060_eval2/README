@@ -175,7 +175,7 @@ references to previously used words.
 
 If the category name is a valid integer of at least one, you should replace
 the blank with a previously used word, counting backwards from the current
-word, such that 1 refers to the immediate previous word.
+word, such that 1 refers to the immediate previous word._2_ refers to word that is used two words prior to the current position in the story template.
 
 Otherwise, if the category name is a category in the catarray_t, you should
 call chooseWord, which will return a random choice from that category
@@ -198,6 +198,8 @@ _animal_ blank, the _1_ blank *must* be replaced with with "walrus". The
 second _animal_ blank might be replaced with either "walrus" or "dragon",
 but the random seed used in provided.o made chooseWord return "walrus" both
 times. 
+
+_2_ refers to word that is used two words prior to the current position in the story template.
 
 Hint: You will want a way to keep track of words that have been used. The
 struct category_t already has an array of words and the length of that

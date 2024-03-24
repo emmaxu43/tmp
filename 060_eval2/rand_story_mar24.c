@@ -128,7 +128,7 @@ const char * get_unique_word(char * category, catarray_t * cats, category_t * us
 }
 
 // remove word from category
-void remove_word(const char *category, const char *word, catarray_t *cats) {
+void remove_word(char * category, const char * word, catarray_t * cats) {
   for (size_t i = 0; i < cats->n; i++) {
     if (strcmp(cats->arr[i].name, category) == 0) {
       for (size_t j = 0; j < cats->arr[i].n_words; j++) {
@@ -160,136 +160,119 @@ void parse_story(char *story_file, catarray_t *cats, int step, int no_reuse) {
     char *line = NULL;
     size_t sz = 0;
     ssize_t read;
-    // Keep track of the words used for each category
-    char **used_words = NULL;
-    int n_used_words = 0;
+    category_t used;
+    used.n_words = 0;
+    used.words = NULL;
+
     while ((read = getline(&line, &sz, f)) != -1) {
         char *current = line;
         char *start = strchr(current, '_');
+
         while (start) {
             char *end = strchr(start + 1, '_');
             if (end == NULL) {
                 perror("Mismatched underscores on line");
                 exit(EXIT_FAILURE);
             }
+
             size_t len = end - start - 1;
             char tmp[len + 1];
             strncpy(tmp, start + 1, len);
             tmp[len] = '\0';
+
             const char *word_to_use;
-            int index = atoi(tmp);
+            char *category_to_use;
             if (is_valid_int(tmp)) {
-                if (index <= 0 || index > n_used_words) {
+                size_t index = atoi(tmp);
+                if (index <= 0 || index > used.n_words) {
                     fprintf(stderr, "Error: invalid reference '%s'\n", tmp);
                     exit(EXIT_FAILURE);
                 }
-                word_to_use = used_words[n_used_words - index];
-                used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-                used_words[n_used_words] = strdup(word_to_use);
-                n_used_words++;
-            }
-       else if (cats != NULL && in_catarray(tmp, cats)) {
-        word_to_use = chooseWord(tmp, cats);
-        if (no_reuse) {
-            while (n_used_words > 0 && strcmp(word_to_use, used_words[n_used_words - 1]) == 0) {
-                remove_word(tmp, word_to_use, cats);
-                word_to_use = chooseWord(tmp, cats);
-            }
-        }
-        used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-        used_words[n_used_words] = strdup(word_to_use);
-        n_used_words++;
-        if (no_reuse) {
-            remove_word(tmp, word_to_use, cats);
-        }
-        }
-            else {
-                fprintf(stderr, "Error: invalid category '%s'\n", tmp);
-                exit(EXIT_FAILURE);
-            }
-            for (char *ptr = current; ptr < start; ptr++) {
-                printf("%c", *ptr);
-            }
-            printf("%s", word_to_use);
-            current = end + 1;
-            start = strchr(current, '_');
-        }
-        printf("%s", current);
-    }
-    free(line);
-    close_file(f);
-    for (int i = 0; i < n_used_words; i++) {
-        free(used_words[i]);
-    }
-    free(used_words);
-}
-
-
-
-/*
-void parse_story(char *story_file, catarray_t *cats, int step, int no_reuse) {
-    FILE *f = open_file(story_file);
-    char *line = NULL;
-    size_t sz = 0;
-    ssize_t read;
-    // Keep track of the words used for each category
-    char **used_words = NULL;
-    int n_used_words = 0;
-    while ((read = getline(&line, &sz, f)) != -1) {
-        char *current = line;
-        char *start = strchr(current, '_');
-        while (start) {
-            char *end = strchr(start + 1, '_');
-            if (end == NULL) {
-                perror("Mismatched underscores on line");
-                exit(EXIT_FAILURE);
-            }
-            size_t len = end - start - 1;
-            char tmp[len + 1];
-            strncpy(tmp, start + 1, len);
-            tmp[len] = '\0';
-            const char *word_to_use;
-            int index = atoi(tmp);
-            if (is_valid_int(tmp)) {
-                if (index <= 0 || index > n_used_words) {
-                    fprintf(stderr, "Error: invalid reference '%s'\n", tmp);
-                    exit(EXIT_FAILURE);
-                }
-                word_to_use = used_words[n_used_words - index];
-                used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-                used_words[n_used_words] = strdup(word_to_use);
-                n_used_words++;
+                word_to_use = used.words[used.n_words - index];
+                category_to_use = NULL;
             }
             else if (cats != NULL && in_catarray(tmp, cats)) {
                 word_to_use = chooseWord(tmp, cats);
-                if (no_reuse && n_used_words > 0 && strcmp(word_to_use, used_words[n_used_words - 1]) == 0) {
-                    word_to_use = chooseWord(tmp, cats);
+                category_to_use = strdup(tmp);
+                // Check if the chosen word is the same as the previous word
+                if (used.n_words > 0 && strcmp(word_to_use, used.words[used.n_words - 1]) == 0) {
+                    // If the word is the same, choose a different word
+                    while (strcmp(word_to_use, used.words[used.n_words - 1]) == 0) {
+                        word_to_use = chooseWord(tmp, cats);
+                    }
                 }
-                used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-                used_words[n_used_words] = strdup(word_to_use);
-                n_used_words++;
+                used.words = realloc(used.words, (used.n_words + 1) * sizeof(*used.words));
+                used.words[used.n_words] = strdup(word_to_use);
+                used.n_words++;
             }
             else {
                 fprintf(stderr, "Error: invalid category '%s'\n", tmp);
                 exit(EXIT_FAILURE);
             }
+
             for (char *ptr = current; ptr < start; ptr++) {
                 printf("%c", *ptr);
             }
             printf("%s", word_to_use);
             current = end + 1;
             start = strchr(current, '_');
+
+            // Check if the next underscore is also a reference
+            if (start && start[1] == '_') {
+                end = strchr(start + 2, '_');
+                if (end == NULL) {
+                    perror("Mismatched underscores on line");
+                    exit(EXIT_FAILURE);
+                }
+
+                len = end - start - 2;
+                char next_ref[len + 1];
+                strncpy(next_ref, start + 2, len);
+                next_ref[len] = '\0';
+
+                if (is_valid_int(next_ref)) {
+                    size_t index = atoi(next_ref);
+                    if (index <= 0 || index > used.n_words) {
+                        fprintf(stderr, "Error: invalid reference '%s'\n", next_ref);
+                        exit(EXIT_FAILURE);
+                    }
+                    printf("%s", used.words[used.n_words - index]);
+                }
+                else if (cats != NULL && in_catarray(next_ref, cats)) {
+                    size_t index = used.n_words - 1;
+                    while (index >= 0) {
+                        if (strcmp(used.words[index], category_to_use) == 0) {
+                            printf("%s", used.words[index]);
+                            break;
+                        }
+                        index--;
+                    }
+                    if (index < 0) {
+                        fprintf(stderr, "Error: category '%s' not found in used categories\n", next_ref);
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                else {
+                    fprintf(stderr, "Error: invalid category '%s'\n", next_ref);
+                    exit(EXIT_FAILURE);
+                }
+                current = end + 1;
+                start = strchr(current, '_');
+            }
+
+            free(category_to_use);
         }
+
         printf("%s", current);
     }
+
     free(line);
     close_file(f);
-    for (int i = 0; i < n_used_words; i++) {
-        free(used_words[i]);
+    for (size_t i = 0; i < used.n_words; i++) {
+        free(used.words[i]);
     }
-    free(used_words);
+    free(used.words);
 }
-*/
 
 // find word in line
 char * find_word(char * line) {
