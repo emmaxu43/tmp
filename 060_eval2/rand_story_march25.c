@@ -230,122 +230,122 @@ void parse_print_story(const char * story_file) {
 
 // parse story (STEP 3 & 4)
 void parse_story(char *story_file, catarray_t *cats, int step, int no_reuse) {
- FILE *f = fopen(story_file, "r");
- if (f == NULL) {
-   fprintf(stderr, "Error: Could not open file\n");
-   exit(EXIT_FAILURE);
- }
- fseek(f, 0, SEEK_END);
- if (ftell(f) == 0) {
-   fprintf(stderr, "Error: File is empty\n");
-   exit(EXIT_FAILURE);
- }
- rewind(f);
+  FILE *f = fopen(story_file, "r");
+  if (f == NULL) {
+    fprintf(stderr, "Error: Could not open file\n");
+    exit(EXIT_FAILURE);
+  }
+  fseek(f, 0, SEEK_END);
+  if (ftell(f) == 0) {
+    fprintf(stderr, "Error: File is empty\n");
+    exit(EXIT_FAILURE);
+  }
+  rewind(f);
 
- char *line = NULL;
- size_t sz = 0;
- ssize_t read;
- char **used_words = NULL;
- int n_used_words = 0;
- while ((read = getline(&line, &sz, f)) != -1) {
-   char *current = line;
-   char *start = strchr(current, '_');
-   while (start) {
-     char *end = strchr(start + 1, '_');
-     if (end == NULL) {
-       fprintf(stderr, "Error: Mismatched underscores on line: %s", line);
-       free(line);
-       for (int i = 0; i < n_used_words; i++) {
-         free(used_words[i]);
-       }
-       free(used_words);
-       fclose(f);
-       exit(EXIT_FAILURE);
-     }
-     size_t len = end - start - 1;
-     char tmp[len + 1];
-     strncpy(tmp, start + 1, len);
-     tmp[len] = '\0';
-     const char *word_to_use;
-     int index = atoi(tmp);
-     if (is_valid_int(tmp)) {
-       if (index <= 0 || index > n_used_words) {
-         fprintf(stderr, "Error: invalid input '%s'\n", tmp);
-         free(line);
-         for (int i = 0; i < n_used_words; i++) {
-           free(used_words[i]);
-         }
-         free(used_words);
-         fclose(f);
-         exit(EXIT_FAILURE);
-       }
-       word_to_use = used_words[n_used_words - index];
-       used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-       used_words[n_used_words] = strdup(word_to_use);
-       n_used_words++;
-     }
-     else if (cats != NULL && in_catarray(tmp, cats)) {
-       word_to_use = chooseWord(tmp, cats);
-       if (word_to_use == NULL) {
-         fprintf(stderr, "No words in category '%s'\n", tmp);
-         free(line);
-         for (int i = 0; i < n_used_words; i++) {
-           free(used_words[i]);
-         }
-         free(used_words);
-         fclose(f);
-         exit(EXIT_FAILURE);
-       }
-       if (no_reuse) {
-         while (n_used_words > 0 && strcmp(word_to_use, used_words[n_used_words - 1]) == 0) {
-           remove_word(tmp, word_to_use, cats);
-           word_to_use = chooseWord(tmp, cats);
-           if (word_to_use == NULL) {
-             fprintf(stderr, "No more unique words in category '%s'\n", tmp);
-             free(line);
-             for (int i = 0; i < n_used_words; i++) {
-               free(used_words[i]);
-             }
-             free(used_words);
-             fclose(f);
-             exit(EXIT_FAILURE);
-           }
-         }
-         remove_word(tmp, word_to_use, cats);
-       }
-       used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
-       used_words[n_used_words] = strdup(word_to_use);
-       n_used_words++;
-     }
-     else {
-       fprintf(stderr, "Error: invalid category '%s'\n", tmp);
-       free(line);
-       for (int i = 0; i < n_used_words; i++) {
-         free(used_words[i]);
-       }
-       free(used_words);
-       fclose(f);
-       exit(EXIT_FAILURE);
-     }
-     for (char *ptr = current; ptr < start; ptr++) {
-       printf("%c", *ptr);
-     }
-     printf("%s", word_to_use);
-     current = end + 1;
-     start = strchr(current, '_');
-   }
-   printf("%s", current);
- }
- free(line);
- for (int i = 0; i < n_used_words; i++) {
-   free(used_words[i]);
- }
- free(used_words);
+  char *line = NULL;
+  size_t sz = 0;
+  ssize_t read;
+  char **used_words = NULL;
+  int n_used_words = 0;
+  while ((read = getline(&line, &sz, f)) != -1) {
+    char *current = line;
+    char *start = strchr(current, '_');
+    while (start) {
+      char *end = strchr(start + 1, '_');
+      if (end == NULL) {
+        fprintf(stderr, "Error: Mismatched underscores on line: %s", line);
+        free(line);
+        for (int i = 0; i < n_used_words; i++) {
+          free(used_words[i]);
+        }
+        free(used_words);
+        fclose(f);
+        exit(EXIT_FAILURE);
+      }
+      size_t len = end - start - 1;
+      char tmp[len + 1];
+      strncpy(tmp, start + 1, len);
+      tmp[len] = '\0';
+      const char *word_to_use;
+      int index = atoi(tmp);
+      if (is_valid_int(tmp)) {
+        if (index <= 0 || index > n_used_words) {
+          fprintf(stderr, "Error: invalid input '%s'\n", tmp);
+          free(line);
+          for (int i = 0; i < n_used_words; i++) {
+            free(used_words[i]);
+          }
+          free(used_words);
+          fclose(f);
+          exit(EXIT_FAILURE);
+        }
+        word_to_use = used_words[n_used_words - index];
+        used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
+        used_words[n_used_words] = strdup(word_to_use);
+        n_used_words++;
+      }
+      else if (cats != NULL && in_catarray(tmp, cats)) {
+        word_to_use = chooseWord(tmp, cats);
+        if (word_to_use == NULL) {
+          fprintf(stderr, "No words in category '%s'\n", tmp);
+          free(line);
+          for (int i = 0; i < n_used_words; i++) {
+            free(used_words[i]);
+          }
+          free(used_words);
+          fclose(f);
+          exit(EXIT_FAILURE);
+        }
+        if (no_reuse) {
+          while (n_used_words > 0 && strcmp(word_to_use, used_words[n_used_words - 1]) == 0) {
+            remove_word(tmp, word_to_use, cats);
+            word_to_use = chooseWord(tmp, cats);
+            if (word_to_use == NULL) {
+              fprintf(stderr, "No more unique words in category '%s'\n", tmp);
+              free(line);
+              for (int i = 0; i < n_used_words; i++) {
+                free(used_words[i]);
+              }
+              free(used_words);
+              fclose(f);
+              exit(EXIT_FAILURE);
+            }
+          }
+          remove_word(tmp, word_to_use, cats);
+        }
+        used_words = realloc(used_words, (n_used_words + 1) * sizeof(*used_words));
+        used_words[n_used_words] = strdup(word_to_use);
+        n_used_words++;
+      }
+      else {
+        fprintf(stderr, "Error: invalid category '%s'\n", tmp);
+        free(line);
+        for (int i = 0; i < n_used_words; i++) {
+          free(used_words[i]);
+        }
+        free(used_words);
+        fclose(f);
+        exit(EXIT_FAILURE);
+      }
+      for (char *ptr = current; ptr < start; ptr++) {
+        printf("%c", *ptr);
+      }
+      printf("%s", word_to_use);
+      current = end + 1;
+      start = strchr(current, '_');
+    }
+    printf("%s", current);
+  }
+  free(line);
+  for (int i = 0; i < n_used_words; i++) {
+    free(used_words[i]);
+  }
+  free(used_words);
 
- if (fclose(f) != 0) {
-   perror("Error: Could not close file\n");
-   exit(EXIT_FAILURE);
- }
+  if (fclose(f) != 0) {
+    perror("Error: Could not close file\n");
+    exit(EXIT_FAILURE);
+  }
 }
 
 
