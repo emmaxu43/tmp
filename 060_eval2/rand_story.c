@@ -79,7 +79,6 @@ catarray_t * read_words(FILE * f) {
       cats->arr[cats->n].words = malloc(sizeof(*cats->arr[cats->n].words));
       cats->arr[cats->n].words[0] = word;
       cats->n++;
-      //free(word);  //double freed
     }
     free(line);
     line = NULL;
@@ -115,7 +114,7 @@ int in_catarray(const char * word, catarray_t * catarray) {
   return 0;
 }
 
-// get unique word not previously used
+// get new and unique word
 const char * get_unique_word(char * category, catarray_t * cats, category_t * used) {
   const char * word = chooseWord(category, cats);
   while (in_catarray(word, cats)) {
@@ -339,6 +338,7 @@ void parse_story(char *story_file, catarray_t *cats, int step, int no_reuse) {
   free(line);
   for (int i = 0; i < n_used_words; i++) {
     free(used_words[i]);
+    used_words[i] = NULL;
   }
   free(used_words);
 
