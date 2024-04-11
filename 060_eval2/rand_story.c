@@ -49,7 +49,7 @@ char *find_category(char *line) {
 }
 
 // read words file
-catarray_t * read_words(FILE * f) {
+catarray_t * read_words(FILE * f, int step, int no_reuse) {
   catarray_t * cats = init_catarray();
 
   size_t sz = 0;
@@ -71,7 +71,9 @@ catarray_t * read_words(FILE * f) {
 
     if (found) {
       free(cat);
-      //free(word); //double freed
+      if (step == 4 && no_reuse == 1) {  
+        free(word); //double freed
+      }
     } else {
       cats->arr = realloc(cats->arr, (cats->n + 1) * sizeof(*cats->arr));
       cats->arr[cats->n].name = cat;
@@ -167,14 +169,24 @@ void free_category(category_t * cat) {
 }
 
 // free categories array  
-void free_catarray(catarray_t * catarray) {
+void free_catarray(catarray_t* catarray, int step, int no_reuse) {
+  /*
+  for (size_t i = 0; i < catarray->n; i++) {
+    if (step == 4 && no_reuse == 1) {
+      ; // Empty statement
+    } else {
+      for (size_t j = 0; j < catarray->arr[i].n_words; j++) {
+        free(catarray->arr[i].words[j]);
+      }
+    }
+  */
   for (size_t i = 0; i < catarray->n; i++) {
     for (size_t j = 0; j < catarray->arr[i].n_words; j++) {
       free(catarray->arr[i].words[j]);
-    }
+      }
     free(catarray->arr[i].words);
     free(catarray->arr[i].name);
-  }
+  }  	
   free(catarray->arr);
   free(catarray);
 }

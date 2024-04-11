@@ -12,11 +12,11 @@ int main(int argc, char ** argv) {
     exit(EXIT_FAILURE);
   }
   
-  catarray_t * cats = read_words(f);
+  catarray_t * cats = read_words(f,2,0);
 
   printWords(cats);
 
-  free_catarray(cats);
+  free_catarray(cats,2,0);
 
   return EXIT_SUCCESS;
 }

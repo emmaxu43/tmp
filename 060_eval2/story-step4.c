@@ -31,11 +31,11 @@ int main(int argc, char * argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  catarray_t * cats = read_words(f);
+  catarray_t * cats = read_words(f,4,no_reuse);
 
   parse_story(story_file, cats, 4, no_reuse);
 
-  free_catarray(cats);
+  free_catarray(cats,4,no_reuse);
 
   return EXIT_SUCCESS;
 }

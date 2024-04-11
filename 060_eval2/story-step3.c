@@ -15,11 +15,11 @@ int main(int argc, char * argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  catarray_t * cats = read_words(f);
+  catarray_t * cats = read_words(f,3,0);
 
   parse_story(story_file, cats, 3, 0);  // no reuse words flag (no use to be false).
 
-  free_catarray(cats);
+  free_catarray(cats,3,0);
 
   return EXIT_SUCCESS;
 }

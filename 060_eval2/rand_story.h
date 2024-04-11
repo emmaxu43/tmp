@@ -11,7 +11,8 @@
 category_t * init_category();
 catarray_t * init_catarray();
 
-catarray_t * read_words(FILE * f);
+// catarray_t * read_words(FILE * f);
+catarray_t * read_words(FILE * f, int step, int no_reuse);
 
 char * find_category(char * line);
 char * find_word(char * line);
@@ -23,7 +24,8 @@ void remove_word(const char * category, const char * word, catarray_t * cats);
 void parse_story(char * story_file, catarray_t * cats, int step, int no_reuse);
 
 void free_category(category_t * cat);
-void free_catarray(catarray_t * catarray);
+void free_catarray(catarray_t * catarray, int step, int no_reus);
+// void free_catarray(catarray_t * catarray);
 
 #endif
 
